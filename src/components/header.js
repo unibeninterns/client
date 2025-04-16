@@ -47,7 +47,7 @@ const Header = () => {
       </header>
 
       {/* Desktop Navigation */}
-      <div className="w-full px-5 md:px-10 bg-default py-3 h-10 sticky top-0 justify-center items-center hidden md:flex capitalize">
+      <div className="w-full px-5 md:px-10 bg-default py-3 h-10 sticky z-50 top-0 justify-center items-center hidden md:flex capitalize">
         <ul className="flex space-x-4 text-white items-center">
           <li>
             <TooltipProvider>

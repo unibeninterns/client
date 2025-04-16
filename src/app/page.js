@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className="w-full h-10/12 text-white bg-gray-800 bg-hero-main bg-no-repeat bg-cover bg-center">
+      <div className="w-full h-max min-h-10/12 text-white bg-gray-800 bg-hero-main bg-no-repeat bg-cover bg-center">
         <div className="w-full h-full backdrop-blur-xs py-16 md:py-24 xl:py-36 px-4 text-center">
           <h1 className="text-4xl font-bold mb-6 md:mb-8 md:text-6xl">
             Advancing Knowledge.<br/>Fueling Innovation.<br/>Driving Development.
@@ -38,6 +38,21 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <main className="w-full">
+        <section className="w-full px-4 md:px-[150px] py-10 md:py-20">
+          <div className="h-1 w-40 bg-black mb-5"></div>
+          <h2 className="text-xl md:text-3xl text-default font-bold">Advancing Research for Sustainable Development at the University of Benin</h2>
+          <div className="w-full py-4 px-2 rounded-sm bg-gray-200 my-10 text-black">
+          <p className="mb-5 text-base md:text-lg font-medium">Following the adoption of the United Nations Sustainable Development Goals (SDGs) in 2015 and the African Union’s Agenda 2063, the University of Benin (UNIBEN) began a progressive alignment of its research priorities to these global and continental development frameworks. Over the years, our researchers and faculties have continued to respond to the urgent need for innovative, context-driven research that directly addresses Nigeria’s and Africa’s most pressing challenges.</p>
+          <p className="mb-5 text-base md:text-lg font-medium">UNIBEN’s interdisciplinary research culture is grounded in practical engagement with societal issues such as environmental degradation, public health, poverty alleviation, gender equity, responsible governance, and sustainable livelihoods. Several of our academic leaders and research teams have been actively contributing to national and regional policy dialogues, supporting implementation of climate action strategies, and promoting inclusive education and justice – all of which are central to the SDGs.</p>
+          <p className="mb-5 text-base md:text-lg font-medium">Notably, the Directorate of Research, Innovation, and Development (DRID) has taken a lead role in mainstreaming the SDGs into our research governance. This includes encouraging grant-winning proposals that explicitly link to one or more of the goals, strengthening partnerships with government, civil society, and the private sector, and developing a research repository that highlights SDG-focused outputs. Collaborations with international development agencies, including the African Development Bank, UNDP, and the Green Climate Fund, have enabled our scholars to make practical contributions to sustainable development in Nigeria and the wider West African sub-region.</p>
+          <p className="mb-5 text-base md:text-lg font-medium">Our efforts are also aligned with the African Union’s Agenda 2063 – “The Africa We Want.” UNIBEN has contributed to regional efforts on climate security in the Sahel, sustainable agriculture, and youth capacity development, in line with the aspirations of a prosperous, integrated, and peaceful Africa. Our participation in cross-border research on transboundary eco-security, food systems transformation, and digital innovation showcases our commitment to locally relevant, globally informed scholarship.</p>
+          <p className="mb-5 text-base md:text-lg font-medium">A university rooted in the heart of Benin City, UNIBEN recognizes its responsibility to lead by example. We have taken steps to promote environmental sustainability across our campus, including the integration of renewable energy solutions, improved waste management systems, and the promotion of sustainability literacy through student-led initiatives. Plans are also underway to develop a formal environmental sustainability framework in line with national and international benchmarks.</p>
+          <p className="mb-5 text-base md:text-lg font-medium">Through our Vision 2025 and beyond, the University of Benin is strengthening its role as a knowledge institution committed to solving real-world problems and nurturing research that is impactful, inclusive, and transformative. Our motto, “Knowledge for Service,” resonates now more than ever, as we work to ensure that our research outcomes contribute meaningfully to the SDGs and a more just and resilient society.</p>
+          </div>
+          <div className="h-1 w-1/3 bg-black mt-5 place-self-end"></div>
+        </section>
+      </main>
     </>
   );
 }
