@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Header from "@/components/header";
 import Link from "next/link";
@@ -24,14 +25,14 @@ export default function Home() {
           <p className="text-base italic mb-8">
             Explore how we lead breakthroughs in science, technology, and societal transformation.
           </p>
-          <div className="flex justify-center space-x-4">
-            <Link href="/research" className="bg-default hover:bg-default text-white font-bold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
+          <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4 justify-center items-center space-x-0">
+            <Link href="/research" className="w-max bg-default hover:bg-default text-white font-bold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
              <BookOpenCheck /> <span>Explore Research</span>
             </Link>
-            <Link href="/innovation" className="bg-default hover:bg-default text-white font-bold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
+            <Link href="/innovation" className="w-max bg-default hover:bg-default text-white font-bold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
                <Brain /> <span>Discover Innovation</span>
             </Link>
-            <Link href="/development" className="bg-default hover:bg-default text-white font-bold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
+            <Link href="/development" className="w-max bg-default hover:bg-default text-white font-bold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
              <Layers /> <span>Drive Development</span>
             </Link>
           </div>
