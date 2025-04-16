@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className="w-full h-max min-h-10/12 text-white bg-gray-800 bg-hero-main bg-no-repeat bg-cover bg-center">
+      <div className="w-full h-max min-h-10/12 text-white bg-gray-800 bg-[url('/hero-main.png')] bg-no-repeat bg-cover bg-center">
         <div className="w-full h-full backdrop-blur-xs py-16 md:py-24 xl:py-36 px-4 text-center">
           <h1 className="text-4xl font-bold mb-6 md:mb-8 md:text-6xl">
             Advancing Knowledge.<br/>Fueling Innovation.<br/>Driving Development.
