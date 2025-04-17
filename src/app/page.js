@@ -231,26 +231,14 @@ export default function Home() {
         {/* Research-Driven Development CTA Section */}
         <section className="bg-blue-50 py-16 px-4 md:px-20 text-center relative overflow-hidden">
           {/* Decorative divider */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-blue-800" />
+          <div className="absolute top-0 left-0 w-full h-1 bg-fuchsia-800" />
 
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-900">
+            <h2 className="text-3xl md:text-4xl font-bold text-fuchsia-900">
               At UNIBEN, research drives development—
               <br className="hidden md:block" />
-              <span className="text-blue-600">not by accident, but by design.</span>
+              <span className="text-fuchsia-600">not by accident, but by design.</span>
             </h2>
-
-            <p className="mt-6 text-lg text-gray-700">
-              Discover how our groundbreaking research is shaping policy, empowering communities,
-              driving innovation, and transforming industries across Nigeria and beyond.
-            </p>
-
-            <a
-              href="/development"
-              className="mt-8 inline-block bg-blue-800 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition"
-            >
-              Explore Research-Driven Development
-            </a>
           </div>
         </section>
       </main>
