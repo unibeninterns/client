@@ -168,6 +168,67 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <div className="h-24 bg-gray-800 w-2 mx-auto" />
+
+        <section className="bg-amber-50 py-16 px-4 md:px-20 grid md:grid-cols-2 gap-12 items-center">
+          {/* Text Content */}
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+              UNIBEN Research Publications
+            </h2>
+            <p className="text-gray-800 text-lg mb-6 leading-relaxed">
+              From groundbreaking academic journals to policy briefs and innovation reports,
+              UNIBEN is committed to shaping scholarship, informing policy, and deepening impact through
+              rigorous and accessible research.
+            </p>
+            <a
+              href="/research"
+              className="inline-block bg-gray-800 text-white px-6 py-3 rounded-full font-medium shadow hover:bg-gray-700 transition-all duration-200"
+            >
+              Explore Research Publications →
+            </a>
+          </div>
+
+          {/* Image */}
+          <div className="relative h-64 w-full">
+            <Image
+              src="/publications.jpeg"
+              alt="UNIBEN Research Engagement"
+              fill
+              className="object-cover rounded-xl shadow-lg"
+            />
+          </div>
+        </section>
+        <div className="h-24 bg-gray-800 w-24 ml-10" />
+        <section className="bg-gray-50 py-16 px-4 md:px-20 grid md:grid-cols-2 gap-12 items-center">
+          {/* Text */}
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-amber-900 mb-4">
+              Research-Driven Development
+            </h2>
+            <p className="text-gray-800 text-lg mb-6 leading-relaxed">
+              At UNIBEN, research drives progress. From shaping policy to building industries,
+              our scholars are turning ideas into solutions that change lives, strengthen systems, and grow communities.
+            </p>
+            <Link
+              href="/development"
+              className="inline-block bg-amber-800 text-white px-6 py-3 rounded-full font-medium shadow hover:bg-amber-700 transition-all duration-200"
+            >
+              Learn More →
+            </Link>
+          </div>
+
+          {/* Image */}
+          <div className="relative h-64 w-full">
+            <Image
+              src="/research-impact-uniben.jpg"
+              alt="UNIBEN Research in Action"
+              fill
+              className="object-cover rounded-xl shadow"
+            />
+          </div>
+        </section>
+
       </main>
     </>
   );
