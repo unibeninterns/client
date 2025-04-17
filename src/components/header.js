@@ -29,7 +29,7 @@ const Header = () => {
           <form className="w-full flex justify-end">
             <Input
               id="search-input"
-              className="rounded-4xl focus:w-full w-52 transition-all text-black"
+              className="rounded-4xl focus:w-full w-52 transition-all text-gray-900"
               placeholder="Search..."
             />
             <label htmlFor="search-input" className="-ml-10 mt-1 text-sm">

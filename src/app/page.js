@@ -16,6 +16,25 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+const researchGroups = [
+  {
+    title: "Centre for Public Health Innovation",
+    description: "Strengthening health systems through data and community-driven research.",
+  },
+  {
+    title: "Digital Governance and Policy Lab",
+    description: "Innovating legal and governance systems with technology and data.",
+  },
+  {
+    title: "Climate and Environmental Resilience Hub",
+    description: "Addressing climate security and sustainable environmental development.",
+  },
+  {
+    title: "Biotech & Genomics Centre",
+    description: "Exploring genetic solutions for agriculture and medicine.",
+  },
+];
+
 export default function Home() {
   return (
     <>
@@ -32,13 +51,13 @@ export default function Home() {
             Explore how we lead breakthroughs in science, technology, and societal transformation.
           </p>
           <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4 justify-center items-center space-x-0">
-            <Link href="/research" className="w-max bg-default hover:bg-default text-white font-bold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
+            <Link href="/research" className="w-max bg-purple-900 hover:bg-purple-800 transition-colors text-white font-semibold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
              <BookOpenCheck /> <span>Explore Research</span>
             </Link>
-            <Link href="/innovation" className="w-max bg-default hover:bg-default text-white font-bold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
+            <Link href="/innovation" className="w-max bg-purple-900 hover:bg-purple-800 transition-colors text-white font-semibold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
                <Brain /> <span>Discover Innovation</span>
             </Link>
-            <Link href="/development" className="w-max bg-default hover:bg-default text-white font-bold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
+            <Link href="/development" className="w-max bg-purple-900 hover:bg-purple-800 transition-colors text-white font-semibold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
              <Layers /> <span>Drive Development</span>
             </Link>
           </div>
@@ -48,7 +67,7 @@ export default function Home() {
         <section className="w-full px-4 md:px-[150px] py-10 md:py-20">
           <div className="h-1 w-40 bg-black mb-5"></div>
           <h2 className="text-xl md:text-3xl text-default font-bold">Advancing Research for Sustainable Development at the University of Benin</h2>
-          <div className="w-full py-4 px-2 md:px-6 rounded-sm bg-gray-200/80 my-10 text-black">
+          <div className="w-full py-4 px-2 md:px-6 rounded-sm bg-gray-200/80 my-10 text-gray-900">
           <p className="mb-5 text-base md:text-lg font-medium">Following the adoption of the United Nations Sustainable Development Goals (SDGs) in 2015 and the African Union’s Agenda 2063, the University of Benin (UNIBEN) began a progressive alignment of its research priorities to these global and continental development frameworks. Over the years, our researchers and faculties have continued to respond to the urgent need for innovative, context-driven research that directly addresses Nigeria’s and Africa’s most pressing challenges.</p>
           <p className="mb-5 text-base md:text-lg font-medium">UNIBEN’s interdisciplinary research culture is grounded in practical engagement with societal issues such as environmental degradation, public health, poverty alleviation, gender equity, responsible governance, and sustainable livelihoods. Several of our academic leaders and research teams have been actively contributing to national and regional policy dialogues, supporting implementation of climate action strategies, and promoting inclusive education and justice – all of which are central to the SDGs.</p>
           <p className="mb-5 text-base md:text-lg font-medium">Notably, the Directorate of Research, Innovation, and Development (DRID) has taken a lead role in mainstreaming the SDGs into our research governance. This includes encouraging grant-winning proposals that explicitly link to one or more of the goals, strengthening partnerships with government, civil society, and the private sector, and developing a research repository that highlights SDG-focused outputs. Collaborations with international development agencies, including the African Development Bank, UNDP, and the Green Climate Fund, have enabled our scholars to make practical contributions to sustainable development in Nigeria and the wider West African sub-region.</p>
@@ -78,6 +97,59 @@ export default function Home() {
             </div>
             <div className="w-full h-full md:w-1/2">
               <Image src={"/research-news.jpeg"} alt="Research news Illustration" title="Research news illustration" width={150} height={150} className="w-full h-full" />
+            </div>
+          </div>
+        </section>
+        <section id="partnership" className="w-full bg-gray-800 bg-[url('/partnership-landing-page.jpeg')] bg-fixed bg-no-repeat bg-cover bg-center">
+          <div className="w-full h-full backdrop-blur-xs px-4 md:px-[150px] py-10 md:py-20 text-white text-center">
+            <p className="text-base md:text-lg font-medium">Connecting Ideas. Catalyzing Innovation. Driving Development.</p>
+            <h2 className="text-2xl md:text-4xl font-bold uppercase mt-6">Global Research Partnerships</h2>
+            <p className="text-base md:text-lg font-medium mt-6">At the University of Benin, we collaborate across continents to co-create solutions that are locally rooted and globally relevant. Our partnerships span Africa, Europe, and the United States—bridging knowledge, empowering people, and shaping the future.</p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link href="/partnerships" className="w-max block mx-auto text-center text-base px-3 py-2 md:px-5 rounded-full border-2 border-solid mt-8 hover:bg-default">PARTNERSHIPS
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>READ MORE ON PARTNERSHIPS</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+          </div>
+        </section>
+        <section className="bg-gray-50 py-16 px-6 md:px-12">
+          <div className="max-w-6xl mx-auto text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+            Research Hubs and Centres of Excellence
+            </h2>
+            <p className="text-lg text-gray-700 mt-2">
+              Driving Change Through Collaborative, Thematic, and Impact-Oriented Research
+            </p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
+            <div className="bg-white p-6 rounded-2xl shadow-md text-left">
+              <p className="text-gray-700 leading-relaxed">
+                At the University of Benin, research is organized through an evolving network of faculties,
+                departments, dedicated research centres, centres of excellence, and interdisciplinary clusters.
+                These formal groupings serve as intellectual engines—bringing together a critical mass of scholars,
+                students, and industry partners to co-create solutions for Nigeria, Africa, and the world.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow-md text-left">
+              <p className="text-gray-700 leading-relaxed">
+                Whether focused on advancing biotechnology, climate security, health systems, or legal reform,
+                UNIBEN’s research hubs serve as catalysts for innovation and development.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow-md text-left">
+              <p className="text-gray-700 leading-relaxed">
+                Many of these centres engage actively in policy advisory, entrepreneurship, community-based innovation,
+                and donor-funded consortia, creating strong linkages between research and real-world impact.
+              </p>
             </div>
           </div>
         </section>
