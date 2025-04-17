@@ -16,12 +16,12 @@ export default function Partnerships() {
           </p>
         </div>
       </div>
-      <main className="w-full bg-white px-4 md:px-[150px] py-10 md:py-20">
-        <section className="mb-10">
-          <h2 className="text-2xl md:text-4xl font-bold text-default mb-6">
+      <main className="w-full bg-white">
+        <section className="px-6 md:px-20 py-16 space-y-8 max-w-5xl mx-auto">
+          <h2 className="text-2xl font-semibold text-fuchsia-700">
             At the University of Benin
           </h2>
-          <p className="text-base md:text-lg mb-4">
+          <p className="text-base md:text-lg">
             At the University of Benin, we believe that solving global
             challenges requires global collaboration. Through dynamic research
             partnerships that span Africa, Europe, the United States, and the
@@ -29,24 +29,24 @@ export default function Partnerships() {
             between knowledge systems, development needs, and innovation
             ecosystems.
           </p>
-          <p className="text-base md:text-lg mb-4">
+          <p className="text-base md:text-lg">
             Our research collaborations are designed to co-create solutions that
             are locally grounded, continentally relevant, and globally
             significant.
           </p>
         </section>
-        <section className="mb-10">
-          <h2 className="text-2xl md:text-4xl font-bold text-default mb-6">
+        <section className="px-6 md:px-20 py-16 space-y-8 max-w-5xl mx-auto">
+          <h2 className="text-2xl font-semibold text-fuchsia-700">
             Why Partner with UNIBEN?
           </h2>
-          <p className="text-base md:text-lg mb-4">
+          <p className="text-base md:text-lg">
             UNIBEN is one of Nigeria’s most respected and research-active
             universities—home to a multidisciplinary network of scholars engaged
             in high-impact work. Our location in West Africa gives partners
             access to rich fieldwork contexts, diverse research expertise, and a
             strong institutional commitment to service and social innovation.
           </p>
-          <p className="text-base md:text-lg mb-4">
+          <p className="text-base md:text-lg">
             We provide a platform for equitable partnerships, grounded in shared
             goals, transparency, and mutual benefit. Whether you are a
             university, donor agency, policy think tank, or private enterprise,
@@ -54,18 +54,18 @@ export default function Partnerships() {
             trusted institutional base.
           </p>
         </section>
-        <section className="mb-10">
-          <h2 className="text-2xl md:text-4xl font-bold text-default mb-6">
+        <section className="px-6 md:px-20 py-16 space-y-8 max-w-5xl mx-auto">
+          <h2 className="text-2xl font-semibold text-fuchsia-700">
             Our Continental and Global Networks
           </h2>
-          <p className="text-base md:text-lg mb-4">
+          <p className="text-base md:text-lg">
             Across Africa, UNIBEN works with universities and research
             institutions to tackle continental priorities—from food security to
             governance, youth employment, digital transformation, and
             peacebuilding. These partnerships amplify African knowledge and
             ensure that solutions reflect the lived realities of our people.
           </p>
-          <p className="text-base md:text-lg mb-4">
+          <p className="text-base md:text-lg">
             In the United States, our growing collaboration with institutions
             like Northeastern University’s School of Public Policy and Urban
             Affairs is enabling joint research on climate justice, circular
@@ -73,7 +73,7 @@ export default function Partnerships() {
             north-south dialogue while nurturing young researchers across both
             contexts.
           </p>
-          <p className="text-base md:text-lg mb-4">
+          <p className="text-base md:text-lg">
             In Europe, partnerships with institutions such as Aix-Marseille
             University (AMU), France, and other EU-based networks are helping
             UNIBEN researchers access platforms for innovation funding,
@@ -81,7 +81,7 @@ export default function Partnerships() {
             are expanding our footprint across Horizon Europe and other
             collaborative research frameworks.
           </p>
-          <p className="text-base md:text-lg mb-4">
+          <p className="text-base md:text-lg">
             With Industry, we are strengthening ties with development-focused
             companies, professional bodies, and research-driven enterprises to
             ensure that knowledge meets application. These linkages help bridge
@@ -90,11 +90,11 @@ export default function Partnerships() {
             governance.
           </p>
         </section>
-        <section>
-          <h2 className="text-2xl md:text-4xl font-bold text-default mb-6">
+        <section className="px-6 md:px-20 py-16 space-y-8 max-w-5xl mx-auto">
+          <h2 className="text-2xl font-semibold text-fuchsia-700">
             Joint Research, Shared Growth
           </h2>
-          <p className="text-base md:text-lg mb-4">
+          <p className="text-base md:text-lg">
             UNIBEN partners participate in joint research programmes, staff and
             student exchange, co-supervision, policy consultation, and capacity
             development projects. These collaborations are not just

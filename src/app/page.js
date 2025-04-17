@@ -16,25 +16,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const researchGroups = [
-  {
-    title: "Centre for Public Health Innovation",
-    description: "Strengthening health systems through data and community-driven research.",
-  },
-  {
-    title: "Digital Governance and Policy Lab",
-    description: "Innovating legal and governance systems with technology and data.",
-  },
-  {
-    title: "Climate and Environmental Resilience Hub",
-    description: "Addressing climate security and sustainable environmental development.",
-  },
-  {
-    title: "Biotech & Genomics Centre",
-    description: "Exploring genetic solutions for agriculture and medicine.",
-  },
-];
-
 export default function Home() {
   return (
     <>
@@ -51,13 +32,13 @@ export default function Home() {
             Explore how we lead breakthroughs in science, technology, and societal transformation.
           </p>
           <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4 justify-center items-center space-x-0">
-            <Link href="/research" className="w-max bg-purple-900 hover:bg-purple-800 transition-colors text-white font-semibold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
+            <Link href="/research" className="w-max shadow-md bg-fuchsia-900 hover:bg-fuchsia-800 transition-colors text-white font-semibold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
              <BookOpenCheck /> <span>Explore Research</span>
             </Link>
-            <Link href="/innovation" className="w-max bg-purple-900 hover:bg-purple-800 transition-colors text-white font-semibold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
+            <Link href="/innovation" className="w-max shadow-md bg-fuchsia-900 hover:bg-fuchsia-800 transition-colors text-white font-semibold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
                <Brain /> <span>Discover Innovation</span>
             </Link>
-            <Link href="/development" className="w-max bg-purple-900 hover:bg-purple-800 transition-colors text-white font-semibold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
+            <Link href="/development" className="w-max shadow-md bg-fuchsia-900 hover:bg-fuchsia-800 transition-colors text-white font-semibold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1">
              <Layers /> <span>Drive Development</span>
             </Link>
           </div>
@@ -66,7 +47,7 @@ export default function Home() {
       <main className="w-full bg-[url('/white-detail.png')] bg-no-repeat bg-fixed bg-cover bg-center">
         <section className="w-full px-4 md:px-[150px] py-10 md:py-20">
           <div className="h-1 w-40 bg-black mb-5"></div>
-          <h2 className="text-xl md:text-3xl text-default font-bold">Advancing Research for Sustainable Development at the University of Benin</h2>
+          <h2 className="text-xl md:text-3xl text-fuchsia-900 font-bold">Advancing Research for Sustainable Development at the University of Benin</h2>
           <div className="w-full py-4 px-2 md:px-6 rounded-sm bg-gray-200/80 my-10 text-gray-900">
           <p className="mb-5 text-base md:text-lg font-medium">Following the adoption of the United Nations Sustainable Development Goals (SDGs) in 2015 and the African Union’s Agenda 2063, the University of Benin (UNIBEN) began a progressive alignment of its research priorities to these global and continental development frameworks. Over the years, our researchers and faculties have continued to respond to the urgent need for innovative, context-driven research that directly addresses Nigeria’s and Africa’s most pressing challenges.</p>
           <p className="mb-5 text-base md:text-lg font-medium">UNIBEN’s interdisciplinary research culture is grounded in practical engagement with societal issues such as environmental degradation, public health, poverty alleviation, gender equity, responsible governance, and sustainable livelihoods. Several of our academic leaders and research teams have been actively contributing to national and regional policy dialogues, supporting implementation of climate action strategies, and promoting inclusive education and justice – all of which are central to the SDGs.</p>
@@ -80,14 +61,14 @@ export default function Home() {
         <section className="w-full bg-white px-4 md:px-[250px] py-10 md:py-20">
           <div className="w-full h-max min-h-56 flex md:flex-row flex-col-reverse space-x-0 space-y-4 md:space-y-0 md:space-x-6 md:justify-between md:items-start rounded-lg bg-black p-3 md:p-6 md:px-16">
             <div className="w-full h-max md:w-1/2 text-white mt-2 md:mt-0">
-              <h2 className="text-2xl md:text-4xl font-bold"><span className="text-base text-default block">UNIBEN Research:</span><span className="block mt-2">Cultivating Excellence, Driving Development</span></h2>
+              <h2 className="text-2xl md:text-4xl font-bold"><span className="text-base text-fuchsia-600 block">UNIBEN Research:</span><span className="block mt-2">Cultivating Excellence, Driving Development</span></h2>
               <p className="mt-6 text-base font-medium">
               At the University of Benin, research is more than a mandate—it is a mission. As a powerhouse of innovation, UNIBEN is home to a vibrant and growing community of researchers who are unlocking solutions to some of Africa’s most complex and urgent challenges. Whether addressing national security through public policy reform or advancing biotechnology in agriculture, our scholars are creating knowledge that matters.
               </p>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link href="/research-news" className="w-max block text-center text-base px-3 py-2 md:px-5 rounded-full border-2 border-solid mt-8 hover:bg-default">LEARN MORE</Link>
+                    <Link href="/research-news" className="w-max block text-center text-base px-3 py-2 md:px-5 rounded-full border-2 border-solid mt-8 hover:bg-fuchsia-900">LEARN MORE</Link>
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>READ MORE ON OUR RESEARCH NEWS PAGE</p>
@@ -108,7 +89,7 @@ export default function Home() {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link href="/partnerships" className="w-max block mx-auto text-center text-base px-3 py-2 md:px-5 rounded-full border-2 border-solid mt-8 hover:bg-default">PARTNERSHIPS
+                    <Link href="/partnerships" className="w-max block mx-auto text-center text-base px-3 py-2 md:px-5 rounded-full border-2 border-solid mt-8 hover:bg-fuchsia-900">PARTNERSHIPS
                     </Link>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -150,6 +131,40 @@ export default function Home() {
                 Many of these centres engage actively in policy advisory, entrepreneurship, community-based innovation,
                 and donor-funded consortia, creating strong linkages between research and real-world impact.
               </p>
+            </div>
+          </div>
+        </section>
+        <section className="bg-white py-16 px-4 md:px-20" id="innovation">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+            {/* Text Content */}
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800 mb-4">Innovation at UNIBEN</h2>
+              <h3 className="text-xl font-semibold text-fuchsia-600 mb-6">Where Ideas Take Root and Grow into Solutions</h3>
+              <p className="text-gray-700 mb-4">
+                At the University of Benin, innovation is not an afterthought—it is an embedded culture. Fuelled by a vibrant mix of academic rigor, creative talent, and a strong spirit of enterprise, UNIBEN is emerging as a launchpad for problem-solvers, changemakers, and next-generation innovators.
+              </p>
+              <p className="text-gray-700 mb-4">
+                From AI-powered healthcare solutions and real estate platforms, to agro-digital tools, logistics services, and entrepreneurship networks, UNIBEN students and recent graduates are building startups that respond to real market needs—while staying true to the university’s ethos of Knowledge for Service.
+              </p>
+              <Link
+                href="/innovation"
+                className="inline-block mt-6 bg-fuchsia-900 text-white px-6 py-3 rounded-full shadow-md hover:bg-fuchsia-700 transition"
+              >
+                Explore Innovation at UNIBEN
+              </Link>
+            </div>
+
+            {/* Image */}
+            <div className="w-full h-full">
+              <div className="relative aspect-video md:aspect-square rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src="/innovation-home.jpeg"
+                  alt="UNIBEN students collaborating on innovation projects"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </section>

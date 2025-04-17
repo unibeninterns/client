@@ -18,15 +18,15 @@ export default function ResearchNews() {
           </p>
         </div>
       </div>
-      <main className="w-full bg-white px-4 md:px-[150px] py-10 md:py-20">
-        <section className="mb-10">
-          <h2 className="text-2xl md:text-4xl font-bold text-default mb-6">
+      <main className="w-full bg-white">
+        <section className="px-6 md:px-20 py-16 space-y-8 max-w-5xl mx-auto">
+          <h2 className="text-2xl font-semibold text-fuchsia-700 mb-6">
             Powered by People, Driven by Purpose
           </h2>
           <p className="text-base md:text-lg mb-4">
             The strength of UNIBEN’s research lies in the hands of its committed
             and visionary faculty. Across faculties and disciplines, researchers
-            are working at the cutting edge of fields that are key to Nigeria's
+            are working at the cutting edge of fields that are key to Nigeria&apos;s
             and Africa’s future.
           </p>
           <p className="text-base md:text-lg mb-4">
@@ -47,8 +47,8 @@ export default function ResearchNews() {
             bridge science, society, and policy.
           </p>
         </section>
-        <section className="mb-10">
-          <h2 className="text-2xl md:text-4xl font-bold text-default mb-6">
+        <section className="px-6 md:px-20 py-16 space-y-8 max-w-5xl mx-auto">
+          <h2 className="text-2xl font-semibold text-fuchsia-700 mb-6">
             Research with Real-World Results
           </h2>
           <ul className="list-disc pl-5 space-y-4">
@@ -81,8 +81,8 @@ export default function ResearchNews() {
             </li>
           </ul>
         </section>
-        <section className="mb-10">
-          <h2 className="text-2xl md:text-4xl font-bold text-default mb-6">
+        <section className="px-6 md:px-20 py-16 space-y-8 max-w-5xl mx-auto">
+          <h2 className="text-2xl font-semibold text-fuchsia-700 mb-6">
             A Thriving Grant-Winning Culture
           </h2>
           <p className="text-base md:text-lg mb-4">
@@ -104,8 +104,8 @@ export default function ResearchNews() {
             </li>
           </ul>
         </section>
-        <section>
-          <h2 className="text-2xl md:text-4xl font-bold text-default mb-6">
+        <section className="px-6 md:px-20 py-16 space-y-8 max-w-5xl mx-auto">
+          <h2 className="text-2xl font-semibold text-fuchsia-700 mb-6">
             Visibility with Purpose
           </h2>
           <p className="text-base md:text-lg mb-4">
