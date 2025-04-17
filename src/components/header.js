@@ -67,22 +67,8 @@ const Header = () => {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="/about" className="hover:text-gray-400">
-                    ABOUT US
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Learn about DRID</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </li>
-          <li>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
                   <Link href="/research" className="hover:text-gray-400">
-                    RESEARCH
+                    RESEARCH AT UNIBEN
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -119,6 +105,34 @@ const Header = () => {
               </Tooltip>
             </TooltipProvider>
           </li>
+          <li>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/research-news" className="hover:text-gray-400">
+                    RESEARCH NEWS
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Latest research news</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </li>
+          <li>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/partnerships" className="hover:text-gray-400">
+                    PARTNERSHIPS
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Our partnerships</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </li>
         </ul>
       </div>
 
@@ -140,17 +154,20 @@ const Header = () => {
           <Link href="/" className="hover:text-gray-400">
             HOME
           </Link>
-          <Link href="/about" className="hover:text-gray-400">
-            ABOUT US
-          </Link>
           <Link href="/research" className="hover:text-gray-400">
-            RESEARCH
+            RESEARCH AT UNIBEN
           </Link>
           <Link href="/innovation" className="hover:text-gray-400">
             INNOVATION
           </Link>
           <Link href="/development" className="hover:text-gray-400">
             DEVELOPMENT
+          </Link>
+          <Link href="/research-news" className="hover:text-gray-400">
+            RESEARCH NEWS
+          </Link>
+          <Link href="/partnerships" className="hover:text-gray-400">
+            PARTNERSHIPS
           </Link>
         </div>
       )}
