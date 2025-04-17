@@ -94,12 +94,12 @@ export default function InnovationPage() {
           Explore stories, features, and case studies from student and faculty innovators making an
           impact in Nigeria and beyond.
         </p>
-        <a
+        <Link
           href="#innovation-articles"
           className="bg-white text-fuchsia-900 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition"
         >
           Read Innovation Articles
-        </a>
+        </Link>
       </section>
 
       {/* Articles Section */}
@@ -120,9 +120,9 @@ export default function InnovationPage() {
             <div className="p-4">
               <h4 className="font-semibold text-lg">Student Startup Redefines Aquaculture</h4>
               <p className="text-sm text-gray-600 mt-2">How young innovators are using tech to improve fish farming in Nigeria.</p>
-              <a href="/articles/aquaculture-startup" className="text-indigo-600 text-sm font-medium mt-3 inline-block">
+              <Link href="/articles/aquaculture-startup" className="text-fuchsia-600 text-sm font-medium mt-3 inline-block">
                 Read more →
-              </a>
+              </Link>
             </div>
           </div>
 

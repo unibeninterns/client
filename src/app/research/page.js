@@ -146,9 +146,9 @@ export default function ResearchPage() {
             <div className="p-4">
               <h4 className="font-semibold text-lg">UNIBEN’s Annual Innovation Report 2024</h4>
               <p className="text-sm text-gray-600 mt-2">A deep dive into key projects, funding wins, and innovation success stories.</p>
-              <a href="/articles/annual-report-2024" className="text-fuchsia-700 text-sm font-medium mt-3 inline-block">
+              <Link href="/articles/annual-report-2024" className="text-fuchsia-700 text-sm font-medium mt-3 inline-block">
                 Read more →
-              </a>
+              </Link>
             </div>
           </div>
         </div>

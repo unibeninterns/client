@@ -1,6 +1,7 @@
 "use client";
 import Image from 'next/image';
 import Header from '@/components/header';
+import Link from 'next/link';
 
 export default function DevelopmentPage() {
   return (
@@ -10,7 +11,7 @@ export default function DevelopmentPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] w-full">
         <Image
-          src="/development-hero.jpg" // Replace with appropriate image
+          src="/development-hero.jpeg" // Replace with appropriate image
           alt="Research-Driven Development"
           fill
           className="object-cover brightness-75"
@@ -84,17 +85,17 @@ export default function DevelopmentPage() {
         <p className="mb-6 max-w-2xl mx-auto">
           Learn more about how UNIBEN research is shaping policy, improving livelihoods, and advancing innovation across Nigeria and beyond.
         </p>
-        <a
-          href="/articles/research-driven-development"
+        <Link
+          href="#articles"
           className="bg-white text-fuchsia-900 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition"
         >
           Explore Development Stories
-        </a>
+        </Link>
       </section>
       
         {/* Articles Section */}
-        <section id="innovation-articles" className="py-16 px-6 md:px-20 max-w-7xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-800 mb-8">Innovation Stories & Articles</h3>
+        <section id="articles" className="py-16 px-6 md:px-20 max-w-7xl mx-auto">
+            <h3 className="text-2xl font-bold text-gray-800 mb-8">UNIBEN Development Articles</h3>
     
             {/* You can dynamically render posts here */}
             <div className="grid md:grid-cols-3 gap-8">
@@ -110,9 +111,9 @@ export default function DevelopmentPage() {
                 <div className="p-4">
                 <h4 className="font-semibold text-lg">Student Startup Redefines Aquaculture</h4>
                 <p className="text-sm text-gray-600 mt-2">How young innovators are using tech to improve fish farming in Nigeria.</p>
-                <a href="/articles/aquaculture-startup" className="text-indigo-600 text-sm font-medium mt-3 inline-block">
+                <Link href="/articles/aquaculture-startup" className="text-fuchsia-600 text-sm font-medium mt-3 inline-block">
                     Read more →
-                </a>
+                </Link>
                 </div>
             </div>
     
