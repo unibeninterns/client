@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export default function Partnerships() {
   return (
@@ -106,6 +107,7 @@ export default function Partnerships() {
             potential.”
           </blockquote>
         </section>
+        <Footer />
       </main>
     </>
   );

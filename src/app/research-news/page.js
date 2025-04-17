@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export default function ResearchNews() {
   return (
@@ -123,6 +124,7 @@ export default function ResearchNews() {
           </p>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

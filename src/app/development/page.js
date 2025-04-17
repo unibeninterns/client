@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Header from '@/components/header';
 import Link from 'next/link';
+import Footer from '@/components/footer';
 
 export default function DevelopmentPage() {
   return (
@@ -120,6 +121,7 @@ export default function DevelopmentPage() {
             {/* Duplicate more cards dynamically */}
             </div>
         </section>
+        <Footer />
     </main>
   );
 }

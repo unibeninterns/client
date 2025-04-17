@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/header';
+import Footer from '@/components/footer';
 
 export default function InnovationPage() {
   return (
@@ -129,6 +130,7 @@ export default function InnovationPage() {
           {/* Duplicate more cards dynamically */}
         </div>
       </section>
+      <Footer />
     </main>
   );
 }
