@@ -41,13 +41,15 @@ const ArticlePage = () => {
           id: 'rel1',
           title: 'Clean Energy Startups from UNIBEN',
           image: '/energy.jpg',
-          description : "Description"
+          description : "Description",
+          category : "development"
         },
         {
           id: 'rel2',
           title: 'UNIBEN Leads Climate Resilience Research',
           image: '/climate.jpg',
-          description : "Description"
+          description : "Description",
+          category : "development"
         },
       ],
     };
@@ -89,7 +91,10 @@ const ArticlePage = () => {
             <h2 className="text-2xl font-semibold text-fuchsia-900 mb-4">Related Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {article.relatedArticles.map((rel) => (
-                <Link href={"/articles/" + rel.id} key={rel.id} className="bg-white shadow rounded-lg overflow-hidden block">
+                <Link href={"/articles/" + rel.id} key={rel.id} className="bg-white shadow rounded-lg overflow-hidden block relative">
+                  <div className="absolute top-2 left-2 bg-fuchsia-900 text-white text-xs font-bold px-2 py-1 rounded uppercase z-10">
+                    {rel.category}
+                  </div>
                   <Image
                     src={rel.image}
                     alt={rel.title}
