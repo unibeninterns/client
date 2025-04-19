@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import Link from 'next/link';
 
 const ArticlePage = () => {
   const params = useParams();
@@ -39,42 +40,14 @@ const ArticlePage = () => {
         {
           id: 'rel1',
           title: 'Clean Energy Startups from UNIBEN',
-          image: '/images/energy.jpg',
+          image: '/energy.jpg',
+          description : "Description"
         },
         {
           id: 'rel2',
           title: 'UNIBEN Leads Climate Resilience Research',
-          image: '/images/climate.jpg',
-        },
-        {
-          id: 'rel1',
-          title: 'Clean Energy Startups from UNIBEN',
-          image: '/images/energy.jpg',
-        },
-        {
-          id: 'rel2',
-          title: 'UNIBEN Leads Climate Resilience Research',
-          image: '/images/climate.jpg',
-        },
-        {
-          id: 'rel1',
-          title: 'Clean Energy Startups from UNIBEN',
-          image: '/images/energy.jpg',
-        },
-        {
-          id: 'rel2',
-          title: 'UNIBEN Leads Climate Resilience Research',
-          image: '/images/climate.jpg',
-        },
-        {
-          id: 'rel1',
-          title: 'Clean Energy Startups from UNIBEN',
-          image: '/images/energy.jpg',
-        },
-        {
-          id: 'rel2',
-          title: 'UNIBEN Leads Climate Resilience Research',
-          image: '/images/climate.jpg',
+          image: '/climate.jpg',
+          description : "Description"
         },
       ],
     };
@@ -86,10 +59,11 @@ const ArticlePage = () => {
 
   return (
     <>
+    <Header />
     <div className="py-16 px-4 md:px-20">
       <h1 className="text-3xl font-bold text-fuchsia-900 mb-4">{article.title}</h1>
       <div className="text-sm text-gray-600 mb-6">
-        <span className="mr-4">Category: <strong>{article.category}</strong></span>
+        <span className="mr-4">Category: <Link href={`/${article.category}`} className='font-bold hover:text-fuchsia-400'>{article.category}</Link></span>
         <span className="mr-4">Faculty: {article.faculty}</span>
         <span>Department: {article.department}</span>
       </div>
@@ -115,7 +89,7 @@ const ArticlePage = () => {
             <h2 className="text-2xl font-semibold text-fuchsia-900 mb-4">Related Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {article.relatedArticles.map((rel) => (
-                <div key={rel.id} className="bg-white shadow rounded-lg overflow-hidden">
+                <Link href={"/articles/" + rel.id} key={rel.id} className="bg-white shadow rounded-lg overflow-hidden block">
                   <Image
                     src={rel.image}
                     alt={rel.title}
@@ -125,8 +99,9 @@ const ArticlePage = () => {
                   />
                   <div className="p-4">
                     <h3 className="text-lg font-semibold text-fuchsia-900">{rel.title}</h3>
+                    <p className='text-xs text-gray-600'>{rel.description}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -136,7 +111,7 @@ const ArticlePage = () => {
           <h2 className="text-xl font-semibold text-fuchsia-900 mb-4">Top Articles</h2>
           <div className="space-y-6">
             {article.topArticles.map((top) => (
-              <div key={top.id} className="bg-white shadow rounded-lg overflow-hidden">
+              <Link href={"/articles/" + top.id} key={top.id} className="bg-white shadow rounded-lg overflow-hidden block">
                 <Image
                   src={top.image}
                   alt={top.title}
@@ -147,7 +122,7 @@ const ArticlePage = () => {
                 <div className="p-4">
                   <h3 className="text-md font-medium text-fuchsia-900">{top.title}</h3>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
