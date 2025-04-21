@@ -29,8 +29,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { getImageUrl } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 function ResearchersPage() {
+  const router = useRouter();
+
   const [researchers, setResearchers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -156,7 +159,7 @@ function ResearchersPage() {
           ) : (
             <div className="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
               {filteredResearchers.map((researcher) => (
-                <Card key={researcher.id} className="overflow-hidden">
+                <Card key={researcher._id} className="overflow-hidden">
                   <div className="flex items-center justify-center bg-gray-100 h-40">
                     {researcher.profilePicture ? (
                       <div className="relative h-40 w-full">
@@ -210,7 +213,7 @@ function ResearchersPage() {
                         variant="ghost"
                         size="sm"
                         onClick={() =>
-                          window.open(`/researchers/${researcher.id}`, "_blank")
+                          router.push(`/admin/researchers/${researcher._id}`)
                         }
                       >
                         <ExternalLink className="h-4 w-4 mr-1" />

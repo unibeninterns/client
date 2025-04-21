@@ -674,13 +674,14 @@ function AdminArticlesPage() {
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="sm" asChild>
-                            <Link
-                              href={`/article/${article._id}`}
-                              target="_blank"
-                            >
-                              <Eye className="h-4 w-4" />
-                            </Link>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() =>
+                              router.push(`/article/${article._id}`)
+                            }
+                          >
+                            <Eye className="h-4 w-4" />
                           </Button>
                           <Button
                             variant="ghost"
