@@ -26,8 +26,8 @@ const profileSchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters"),
 });
 
-export default async function ResearcherRegisterPage({ params }) {
-  const { token } = await params;
+export default function ResearcherRegisterPage({ params }) {
+  const { token } = params;
   const [name, setName] = useState("");
   const [faculty, setFaculty] = useState("");
   const [bio, setBio] = useState("");
