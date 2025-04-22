@@ -15,7 +15,7 @@ function getSafeHostname(urlString, fallback = "localhost") {
   } catch {
     // fallback for cases like "localhost:3000" without protocol
     const match = urlString.match(/^(https?):\/\/([^:/]+)(?::(\d+))?/);
-    if (match) {  
+    if (match) {
       return {
         protocol: match[1],
         hostname: match[2],
@@ -32,7 +32,7 @@ function getSafeHostname(urlString, fallback = "localhost") {
 }
 
 const devHost = getSafeHostname("http://localhost:3000");
-const prodHost = getSafeHostname(process.env.NEXT_PUBLIC_API_URL || "");
+const prodHost = getSafeHostname(process.env.NEXT_PUBLIC_API_URL2 || "");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

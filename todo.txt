@@ -1,2 +1,5 @@
 TODO : Ask the director for information on emails and dertails on partnerships. 
 TODO : Add 15-25 words description field in the admin section.
+
+
+TODO : fix infinite loader in the admin page 
