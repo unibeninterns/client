@@ -15,7 +15,7 @@ function getSafeHostname(urlString, fallback = "localhost") {
   } catch {
     // fallback for cases like "localhost:3000" without protocol
     const match = urlString.match(/^(https?):\/\/([^:/]+)(?::(\d+))?/);
-    if (match) {
+    if (match) {  
       return {
         protocol: match[1],
         hostname: match[2],
