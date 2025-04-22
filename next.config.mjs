@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -5,12 +8,12 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
-        port: "3000", // Your backend server port in development
+        port: "3000", // For local development
         pathname: "/uploads/**",
       },
       {
         protocol: "https",
-        hostname: "your-api-domain.com", // Your production API domain
+        hostname: new URL(process.env.NEXT_PUBLIC_API_URL || "").hostname,
         pathname: "/uploads/**",
       },
     ],
