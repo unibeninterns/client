@@ -1,6 +1,6 @@
 // Fixed articles/[id]/layout.js
 export async function generateMetadata({ params }) {
-  const { id } = params;
+  const { id } = await params;
 
   try {
     // We'll need to fetch the article to get its title for metadata

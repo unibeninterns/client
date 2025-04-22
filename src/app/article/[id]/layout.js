@@ -1,6 +1,6 @@
 // Fixed article/[id]/layout.js
 export async function generateMetadata({ params }) {
-  const { id } = params;
+  const { id } = await params;
 
   try {
     // Fetch description and title and create OG links from the article data
