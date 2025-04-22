@@ -172,7 +172,7 @@ const ArticlePage = () => {
 
         {article.cover_photo && (
           <Image
-            src={getImageUrl(article.cover_photo)}
+            src={article.cover_photo}
             alt="Cover Photo"
             width={1200}
             height={500}
