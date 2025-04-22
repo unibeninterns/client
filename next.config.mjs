@@ -32,7 +32,7 @@ function getSafeHostname(urlString, fallback = "localhost") {
 }
 
 const devHost = getSafeHostname("http://localhost:3000");
-const prodHost = getSafeHostname(process.env.NEXT_PUBLIC_API_URL2 || "");
+const prodHost = getSafeHostname(process.env.NEXT_PUBLIC_API_URL || "");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
