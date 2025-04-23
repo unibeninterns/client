@@ -31,7 +31,7 @@ export default function Home() {
             Driving Development.
           </h1>
           <p className="text-lg mb-6">
-            At the Department of Research, Innovation, and Development, we
+            At the Directorate of Research, Innovation, and Development, we
             empower bold ideas, support pioneering research, and create
             solutions that shape tomorrow.
           </p>
