@@ -265,6 +265,33 @@ export const authApi = {
 
 // Updated Articles API
 export const articlesApi = {
+  getPublicArticles: async (filters = {}) => {
+    try {
+      const response = await apiClient.get("/articles", {
+        params: filters
+      });
+      return response.data;
+    } catch (error) {
+      throw new ApiError(
+        error.response?.data?.message || "Failed to fetch articles",
+        error.response?.status || 500
+      );
+    }
+  },
+
+  // Get a specific public article by ID
+  getPublicArticle: async (id) => {
+    try {
+      const response = await apiClient.get(/articles/${id});
+      return response.data;
+    } catch (error) {
+      throw new ApiError(
+        error.response?.data?.message || "Failed to fetch article",
+        error.response?.status || 500
+      );
+    }
+  },
+
   // Get all articles with optional category filter
   getArticles: async (filters = {}) => {
     return requestWithAuth({
