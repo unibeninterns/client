@@ -29,7 +29,7 @@ const ArticlePage = () => {
 
     const fetchData = async () => {
       try {
-        const articleData = await articlesApi.getPublicArticle(articleId);
+        const articleData = await articlesApi. getPublicArticle(articleId);
         if (!articleData) {
           setError("Article not found");
           setLoading(false);
@@ -83,7 +83,7 @@ const ArticlePage = () => {
         // Fetch articles with the same category for related articles
         try {
           if (articleData && articleData.category) {
-            const allArticles = await articlesApi.getPublicArticle({
+            const allArticles = await articlesApi. getPublicArticles({
               category: articleData.category,
             });
             if (Array.isArray(allArticles)) {

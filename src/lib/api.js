@@ -291,7 +291,6 @@ export const articlesApi = {
       );
     }
   },
-
   // Get all articles with optional category filter
   getArticles: async (filters = {}) => {
     return requestWithAuth({
