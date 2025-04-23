@@ -18,7 +18,7 @@ export default function InnovationPage() {
         const filters = {
           category: "Innovation",
         };
-        const articles = await articlesApi.getArticles(filters);
+        const articles = await articlesApi.getPublicArticles(filters);
         setInnovationArticles(articles.slice(0, 3)); // Get first 3 articles
       } catch (error) {
         console.error("Error fetching innovation articles:", error);

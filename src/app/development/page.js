@@ -18,7 +18,7 @@ export default function DevelopmentPage() {
         const filters = {
           category: "Development",
         };
-        const articles = await articlesApi.getArticles(filters);
+        const articles = await articlesApi.getPublicArticles(filters);
         setDevelopmentArticles(articles.slice(0, 3)); // Get first 3 articles
       } catch (error) {
         console.error("Error fetching development articles:", error);

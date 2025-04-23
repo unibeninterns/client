@@ -118,7 +118,7 @@ const SearchClient = () => {
         searchParams.department = selectedDepartment;
       }
 
-      const articles = await articlesApi.getArticles(searchParams);
+      const articles = await articlesApi.getPublicArticles(searchParams);
       setResults(Array.isArray(articles) ? articles : []);
     } catch (error) {
       console.error("Search error:", error);

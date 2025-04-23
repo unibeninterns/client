@@ -18,7 +18,7 @@ export default function ResearchPage() {
         const filters = {
           category: "Research",
         };
-        const articles = await articlesApi.getArticles(filters);
+        const articles = await articlesApi.getPublicArticles(filters);
         setResearchArticles(articles.slice(0, 3)); // Get first 3 articles
       } catch (error) {
         console.error("Error fetching research articles:", error);

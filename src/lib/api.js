@@ -254,11 +254,11 @@ export const authApi = {
       },
     });
   },
-  
+
   getResearcherDashboard: async (researcherId) => {
     return requestWithAuth({
       method: "get",
-      url: `/admin/researchers/${researcherId}/dashboard`
+      url: `/admin/researchers/${researcherId}/dashboard`,
     });
   },
 };
@@ -268,7 +268,7 @@ export const articlesApi = {
   getPublicArticles: async (filters = {}) => {
     try {
       const response = await apiClient.get("/articles", {
-        params: filters
+        params: filters,
       });
       return response.data;
     } catch (error) {
@@ -282,7 +282,7 @@ export const articlesApi = {
   // Get a specific public article by ID
   getPublicArticle: async (id) => {
     try {
-      const response = await apiClient.get(/articles/${id});
+      const response = await apiClient.get(`/articles/${id}`);
       return response.data;
     } catch (error) {
       throw new ApiError(
