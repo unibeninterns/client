@@ -368,6 +368,52 @@ export default function Home() {
             />
           </div>
         </section>
+        <section className="bg-gray-100 py-16 px-4 md:px-20">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-fuchsia-900 mb-10 text-center">
+              The Director & Directorate
+            </h2>
+
+            <div className="flex flex-col md:flex-row items-center gap-10">
+              <div className="flex-shrink-0 w-full md:w-1/3">
+                <Image
+                  src="/drid-director.jpg"
+                  alt="Prof. Ngozi Finette Stewart"
+                  className="rounded-2xl w-full h-auto object-cover shadow-lg"
+                  width={200}
+                  height={450}
+                />
+              </div>
+
+              {/* Message Content */}
+              <div className="w-full md:w-2/3">
+                <h3 className="text-xl font-semibold text-fuchsia-900 mb-2">
+                Prof. Ngozi Finette (Stewart) Unuigbe
+                </h3>
+                <p className="text-sm text-gray-600 italic mb-4">
+                  Director, Directorate of Research, Innovation and Development (DRID)
+                </p>
+
+                <div className="space-y-6 text-gray-700 text-justify">
+                  <p>
+                  Prof. Ngozi Finette Stewart is a renowned professor of international environmental law and policy at the University of Benin, Nigeria. With over 15 years of experience in climate security, sustainable development, and research governance, she leads DRID with a clear vision to elevate the university’s research visibility, innovation output, and grant-winning capacity.
+                  </p>
+                  <p>
+                  She has worked with leading institutions including the African Development Bank, United Nations Development Programme, and the United Nations University, International Fund for Agricultural Development(IFAD), Sustainable Trade Initiative etc. and is committed to building a vibrant, impact-driven research culture through strategic partnerships, capacity development, and cutting-edge scholarship.
+                  </p>
+
+                  <p>
+                    The Directorate of Research, Innovation and Development (DRID) is the engine room for advancing high-impact research, fostering innovation, and driving sustainable development at the University of Benin. DRID provides strategic leadership in research governance, capacity building, grant facilitation, innovation management, and commercialization of research outputs.
+                  </p>
+
+                  <p>
+                    Through strategic partnerships, competitive grant support, and targeted workshops, the Directorate is committed to enhancing the university’s research visibility, interdisciplinary collaboration, and real-world impact. DRID also ensures that knowledge generated at UNIBEN drives national and global transformation.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         <section className="bg-blue-50 py-16 px-4 md:px-20 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-fuchsia-800" />
 
