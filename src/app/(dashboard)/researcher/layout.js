@@ -31,10 +31,11 @@ export default function ResearcherDashboardLayout({ children }) {
       </div>
     );
   }
-  
+  /*
   if (!user || !isResearcher) {
   router.push('/researcher-login');
   return null;
+  */
 }
 
   const navigation = [
