@@ -123,6 +123,9 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated: true,
         role: "admin",
       });
+      
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
       return true;
     } catch (error) {
       console.error("Admin login failed:", error);
@@ -144,6 +147,8 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated: true,
         role: "researcher",
       });
+      
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       return true;
     } catch (error) {

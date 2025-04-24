@@ -65,6 +65,7 @@ export default function AdminLoginPage() {
 
     try {
       await adminLogin(email, password);
+      await new Promise(resolve => setTimeout(resolve, 300));
       router.push("/admin");
       console.log("Admin login successful");
     } catch (error) {
