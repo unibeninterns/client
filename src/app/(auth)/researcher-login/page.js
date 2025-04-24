@@ -65,7 +65,6 @@ export default function ResearcherLoginPage() {
 
     try {
       await researcherLogin(email, password);
-      await new Promise(resolve => setTimeout(resolve, 300));
       router.push("/researcher");
     } catch (error) {
       setError(
