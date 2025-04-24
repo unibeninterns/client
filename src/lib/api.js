@@ -259,7 +259,7 @@ export const authApi = {
     return requestWithAuth({
       method: "get",
       url: `/admin/researchers/${researcherId}/dashboard`,
-    });
+    }); 
   },
 };
 
