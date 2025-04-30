@@ -3,23 +3,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  FileText,
-  Users,
-  Eye,
-  MessageSquare,
-  BarChart4,
-  TrendingUp,
-  RefreshCw,
-} from "lucide-react";
+import { FileText, Users, Eye, MessageSquare, RefreshCw } from "lucide-react";
 import { withAdminAuth } from "@/lib/auth";
-import {
-  articlesApi,
-  researchersApi,
-  articleViewsApi,
-  facultyApi,
-  departmentApi,
-} from "@/lib/api";
+import { articlesApi, researchersApi, articleViewsApi } from "@/lib/api";
 
 function AdminDashboardPage() {
   const router = useRouter();

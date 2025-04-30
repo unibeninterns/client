@@ -24,10 +24,6 @@ const MAX_RETRY_ATTEMPTS = 1;
 async function requestWithAuth(config, retryCount = 0) {
   try {
     const accessToken = await getToken();
-    console.log(
-      "Token in requestWithAuth:",
-      accessToken ? "Token exists" : "No token"
-    );
 
     if (accessToken) {
       config.headers = {
@@ -116,8 +112,6 @@ export async function refreshAccessToken() {
         withCredentials: true,
       }
     );
-
-    console.log("Refresh response:", response.data);
 
     if (response.data.accessToken) {
       console.log("New access token received");
@@ -259,7 +253,7 @@ export const authApi = {
     return requestWithAuth({
       method: "get",
       url: `/admin/researchers/${researcherId}/dashboard`,
-    }); 
+    });
   },
 };
 

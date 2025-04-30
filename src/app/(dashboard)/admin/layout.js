@@ -3,7 +3,7 @@
 import { useContext, useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { AuthContext, AuthProvider } from "@/lib/auth";
+import { AuthContext } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import {
   LayoutDashboard,

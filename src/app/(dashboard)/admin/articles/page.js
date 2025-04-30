@@ -223,15 +223,6 @@ function AdminArticlesPage() {
       return;
     }
 
-    console.log("Form data before submission:", {
-      title: formData.title,
-      category: formData.category,
-      content: formData.content,
-      faculty: formData.faculty, // Check if this is correctly set
-      department: formData.department,
-      contributors: formData.contributors,
-    });
-
     setIsSubmitting(true);
 
     try {

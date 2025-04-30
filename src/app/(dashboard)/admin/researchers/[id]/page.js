@@ -50,13 +50,10 @@ function AdminResearcherDashboard() {
 
         // Fetch researcher dashboard data
         const response = await authApi.getResearcherDashboard(researcherId);
-        console.log("API Response:", response);
 
         // Set state with fetched data
         if (response?.data) {
           setDashboardData(response.data);
-          console.log("Fetched researcher dashboard:", response.data);
-          console.log("Dashboard data updated:", dashboardData);
         }
       } catch (error) {
         console.error("Error fetching researcher dashboard:", error);
@@ -71,7 +68,6 @@ function AdminResearcherDashboard() {
     if (researcherId) {
       fetchResearcherDashboard();
     }
-    console.log("Dashboard data updated:", dashboardData);
   }, [researcherId]);
 
   // Display loading state
@@ -109,8 +105,6 @@ function AdminResearcherDashboard() {
   }
 
   const { profile, articles, collaborators, stats, analytics } = dashboardData;
-  console.log("Dashboard data:", dashboardData);
-
   return (
     <div className="space-y-6 p-4 md:p-8">
       <div className="flex items-center gap-4">

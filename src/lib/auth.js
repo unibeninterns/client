@@ -38,10 +38,6 @@ export const AuthProvider = ({ children }) => {
       setError(null);
 
       const token = await getToken();
-      console.log(
-        "Token in checkAuth:",
-        token ? `${token.substring(0, 10)}...` : "No token"
-      );
 
       if (!token) {
         console.log("No token found, user not authenticated");
@@ -54,7 +50,6 @@ export const AuthProvider = ({ children }) => {
         // First check if the current token is valid
         console.log("Verifying token with server...");
         const response = await authApi.verifyToken();
-        console.log("Token verification successful:", response);
 
         setUser({
           ...response.user,
