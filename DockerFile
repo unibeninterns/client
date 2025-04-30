@@ -1,0 +1,22 @@
+# Use official Node.js image
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Set default port value
+ENV PORT=3004
+
+# Copy package.json and install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the app
+COPY . .
+
+# Build the Next.js app
+RUN npm run build
+
+# Expose the port and run the app
+EXPOSE ${PORT}
+CMD ["npm", "start"]
