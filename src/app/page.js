@@ -24,27 +24,27 @@ export default function Home() {
       <div className="w-full h-max min-h-10/12 text-white bg-gray-800 bg-[url('/hero-main.png')] bg-no-repeat bg-cover bg-center">
         <div className="w-full h-full backdrop-blur-xs py-16 md:py-24 xl:py-36 px-4 text-center">
           <h1 className="text-4xl font-bold mb-6 md:mb-8 md:text-6xl">
-            Advancing Knowledge.
+            Advancing Research.
             <br />
-            Fueling Innovation.
+            Fostering Innovation.
             <br />
-            Driving Development.
+            Catalyzing Development.
           </h1>
           <p className="text-lg mb-6">
-            At the Directorate of Research, Innovation, and Development, we
-            empower bold ideas, support pioneering research, and create
-            solutions that shape tomorrow.
+            The Directorate of Research, Innovation and Development (DRID) is the engine room 
+            for advancing high-impact research, fostering innovation, and catalyzing sustainable 
+            development at the University of Benin.
           </p>
           <p className="text-base italic mb-8">
-            Explore how we lead breakthroughs in science, technology, and
-            societal transformation.
+            Through strategic leadership, partnerships, and support, we drive research excellence 
+            and societal impact.
           </p>
           <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4 justify-center items-center space-x-0">
             <Link
               href="/research"
               className="w-max shadow-md bg-fuchsia-900 hover:bg-fuchsia-800 transition-colors text-white font-semibold py-2 md:py-4 px-4 rounded-full flex justify-between space-x-1"
             >
-              <BookOpenCheck /> <span>Explore Research</span>
+              <BookOpenCheck /> <span>Research Excellence</span>
             </Link>
             <Link
               href="/innovation"
@@ -368,10 +368,30 @@ export default function Home() {
             />
           </div>
         </section>
+        <section className="bg-white py-16 px-4 md:px-20">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+              About DRID
+            </h2>
+            <h3 className="text-xl font-semibold text-fuchsia-900 mb-8">
+              Directorate of Research, Innovation and Development
+            </h3>
+            
+            <div className="bg-gray-50 rounded-xl p-8 shadow-lg">
+              <p className="text-gray-800 mb-6 leading-relaxed">
+                The Directorate of Research, Innovation and Development (DRID) is the engine room for advancing high-impact research, fostering innovation, and catalyzing sustainable development at the University of Benin. It provides strategic leadership in research governance, capacity building, grant facilitation, innovation management, and commercialization of research outputs.
+              </p>
+              
+              <p className="text-gray-800 leading-relaxed">
+                Through internal seed funding, competitive grant support, interdisciplinary research clusters, and international partnerships, DRID is committed to strengthening UNIBEN's research visibility, societal relevance, and global competitiveness. It also ensures that the university's research actively contributes to solving pressing national and global challenges.
+              </p>
+            </div>
+          </div>
+        </section>
         <section className="bg-gray-100 py-16 px-4 md:px-20">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-fuchsia-900 mb-10 text-center">
-              The Director & Directorate
+              Message from the Director
             </h2>
 
             <div className="flex flex-col md:flex-row items-center gap-10">
@@ -387,29 +407,25 @@ export default function Home() {
 
               {/* Message Content */}
               <div className="w-full md:w-2/3">
-                <h3 className="text-xl font-semibold text-fuchsia-900 mb-2">
-                Prof. Ngozi Finette (Stewart) Unuigbe
-                </h3>
-                <p className="text-sm text-gray-600 italic mb-4">
-                  Director, Directorate of Research, Innovation and Development (DRID)
-                </p>
+                
 
                 <div className="space-y-6 text-gray-700 text-justify">
                   <p>
-                  Prof. Ngozi Finette Stewart is a renowned professor of international environmental law and policy at the University of Benin, Nigeria. With over 15 years of experience in climate security, sustainable development, and research governance, she leads DRID with a clear vision to elevate the university’s research visibility, innovation output, and grant-winning capacity.
+                  As Director of DRID, I am committed to cultivating a dynamic and results-oriented research culture that aligns with national development goals and global priorities. Our vision is clear: to position UNIBEN as a leading center of research excellence, innovation, and policy impact
                   </p>
-                  <p>
-                  She has worked with leading institutions including the African Development Bank, United Nations Development Programme, and the United Nations University, International Fund for Agricultural Development(IFAD), Sustainable Trade Initiative etc. and is committed to building a vibrant, impact-driven research culture through strategic partnerships, capacity development, and cutting-edge scholarship.
-                  </p>
-
-                  <p>
-                    The Directorate of Research, Innovation and Development (DRID) is the engine room for advancing high-impact research, fostering innovation, and driving sustainable development at the University of Benin. DRID provides strategic leadership in research governance, capacity building, grant facilitation, innovation management, and commercialization of research outputs.
-                  </p>
-
-                  <p>
-                    Through strategic partnerships, competitive grant support, and targeted workshops, the Directorate is committed to enhancing the university’s research visibility, interdisciplinary collaboration, and real-world impact. DRID also ensures that knowledge generated at UNIBEN drives national and global transformation.
+                  <p className="mt-4">
+                  We invite researchers, students, industry actors, and development partners to collaborate with us in generating solutions that matter—solutions rooted in rigorous scholarship, innovation, and community relevance.
                   </p>
                 </div>
+                <h3 className="text-xl font-semibold text-fuchsia-900 mb-2 mt-8">
+                Prof. Ngozi Finette (Stewart) Unuigbe
+                </h3>
+                <p className="text-sm text-gray-600 italic mb-1">
+                  Director, Directorate of Research, Innovation and Development (DRID)
+                </p>
+                <p className="text-sm text-gray-600 italic mb-4">
+                  University of Benin, Nigeria.
+                </p>
               </div>
             </div>
           </div>
