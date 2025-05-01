@@ -5,7 +5,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Set default port value
-ENV PORT=3004
+ENV PORT=4000
 
 # Copy package.json and install dependencies
 COPY package*.json ./
