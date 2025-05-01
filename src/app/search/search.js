@@ -164,7 +164,7 @@ const SearchClient = () => {
     ) {
       performSearch();
     }
-  }, [initialQuery, initialCategory, initialFaculty, initialDepartment]);
+  }, [initialQuery, initialCategory, initialFaculty, initialDepartment, performSearch]);
 
   return (
     <>

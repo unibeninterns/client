@@ -383,7 +383,7 @@ export default function Home() {
               </p>
               
               <p className="text-gray-800 leading-relaxed">
-                Through internal seed funding, competitive grant support, interdisciplinary research clusters, and international partnerships, DRID is committed to strengthening UNIBEN's research visibility, societal relevance, and global competitiveness. It also ensures that the university's research actively contributes to solving pressing national and global challenges.
+                Through internal seed funding, competitive grant support, interdisciplinary research clusters, and international partnerships, DRID is committed to strengthening UNIBEN&apos;s research visibility, societal relevance, and global competitiveness. It also ensures that the university&apos;s research actively contributes to solving pressing national and global challenges.
               </p>
             </div>
           </div>
