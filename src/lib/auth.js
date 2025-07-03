@@ -102,7 +102,6 @@ export const AuthProvider = ({ children }) => {
 
   // Run auth check on initial load
   useEffect(() => {
-    console.log("Running initial auth check");
     checkAuth();
   }, [checkAuth]);
 
@@ -110,9 +109,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      console.log("Attempting admin login for:", email);
       const data = await authApi.adminLogin(email, password);
-      console.log("Admin login successful:", data);
       setUser({
         ...data.user,
         isAuthenticated: true,
@@ -131,9 +128,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      console.log("Attempting researcher login for:", email);
       const data = await authApi.researcherLogin(email, password);
-      console.log("Researcher login successful:", data);
       setUser({
         ...data.user,
         isAuthenticated: true,
