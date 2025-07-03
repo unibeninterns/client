@@ -177,7 +177,7 @@ export default function ArticleDetailPage() {
 
             {article.faculty && (
               <span className="inline-flex items-center px-4 py-2 bg-fuchsia-50 text-fuchsia-700 text-sm font-medium rounded-full">
-                {faculty?.title || "Unknown Faculty"}
+                {faculty?.title || "Faculty: N/A"}
               </span>
             )}
           </div>

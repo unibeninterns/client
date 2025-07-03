@@ -218,7 +218,7 @@ export default function ResearchPage() {
             {researchArticles.map((article) => (
               <div
                 key={article._id}
-                className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition bg-white"
+                className="group border rounded-lg overflow-hidden shadow-md bg-white transition-all duration-300 hover:shadow-2xl hover:scale-105 border-fuchsia-100 hover:border-fuchsia-200"
               >
                 {article.cover_photo && (
                   <Image
@@ -226,11 +226,13 @@ export default function ResearchPage() {
                     alt={article.title}
                     width={500}
                     height={300}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                 )}
                 <div className="p-4">
-                  <h4 className="font-semibold text-lg">{article.title}</h4>
+                  <h3 className="text-lg font-bold text-fuchsia-900 mb-1 line-clamp-2 group-hover:text-fuchsia-700 transition-colors">
+                    {article.title}
+                  </h3>
                   <p className="text-sm text-gray-600 mt-2">
                     {article.summary}
                   </p>
