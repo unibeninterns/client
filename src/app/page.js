@@ -31,13 +31,14 @@ export default function Home() {
             Catalyzing Development.
           </h1>
           <p className="text-lg mb-6">
-            The Directorate of Research, Innovation and Development (DRID) is the engine room 
-            for advancing high-impact research, fostering innovation, and catalyzing sustainable 
-            development at the University of Benin.
+            The Directorate of Research, Innovation and Development (DRID) is
+            the engine room for advancing high-impact research, fostering
+            innovation, and catalyzing sustainable development at the University
+            of Benin.
           </p>
           <p className="text-base italic mb-8">
-            Through strategic leadership, partnerships, and support, we drive research excellence 
-            and societal impact.
+            Through strategic leadership, partnerships, and support, we drive
+            research excellence and societal impact.
           </p>
           <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-4 justify-center items-center space-x-0">
             <Link
@@ -376,14 +377,26 @@ export default function Home() {
             <h3 className="text-xl font-semibold text-fuchsia-900 mb-8">
               Directorate of Research, Innovation and Development
             </h3>
-            
+
             <div className="bg-gray-50 rounded-xl p-8 shadow-lg">
               <p className="text-gray-800 mb-6 leading-relaxed">
-                The Directorate of Research, Innovation and Development (DRID) is the engine room for advancing high-impact research, fostering innovation, and catalyzing sustainable development at the University of Benin. It provides strategic leadership in research governance, capacity building, grant facilitation, innovation management, and commercialization of research outputs.
+                The Directorate of Research, Innovation and Development (DRID)
+                is the engine room for advancing high-impact research, fostering
+                innovation, and catalyzing sustainable development at the
+                University of Benin. It provides strategic leadership in
+                research governance, capacity building, grant facilitation,
+                innovation management, and commercialization of research
+                outputs.
               </p>
-              
+
               <p className="text-gray-800 leading-relaxed">
-                Through internal seed funding, competitive grant support, interdisciplinary research clusters, and international partnerships, DRID is committed to strengthening UNIBEN&apos;s research visibility, societal relevance, and global competitiveness. It also ensures that the university&apos;s research actively contributes to solving pressing national and global challenges.
+                Through internal seed funding, competitive grant support,
+                interdisciplinary research clusters, and international
+                partnerships, DRID is committed to strengthening UNIBEN&apos;s
+                research visibility, societal relevance, and global
+                competitiveness. It also ensures that the university&apos;s
+                research actively contributes to solving pressing national and
+                global challenges.
               </p>
             </div>
           </div>
@@ -407,21 +420,27 @@ export default function Home() {
 
               {/* Message Content */}
               <div className="w-full md:w-2/3">
-                
-
                 <div className="space-y-6 text-gray-700 text-justify">
                   <p>
-                  As Director of DRID, I am committed to cultivating a dynamic and results-oriented research culture that aligns with national development goals and global priorities. Our vision is clear: to position UNIBEN as a leading center of research excellence, innovation, and policy impact
+                    As Director of DRID, I am committed to cultivating a dynamic
+                    and results-oriented research culture that aligns with
+                    national development goals and global priorities. Our vision
+                    is clear: to position UNIBEN as a leading center of research
+                    excellence, innovation, and policy impact
                   </p>
                   <p className="mt-4">
-                  We invite researchers, students, industry actors, and development partners to collaborate with us in generating solutions that matter—solutions rooted in rigorous scholarship, innovation, and community relevance.
+                    We invite researchers, students, industry actors, and
+                    development partners to collaborate with us in generating
+                    solutions that matter—solutions rooted in rigorous
+                    scholarship, innovation, and community relevance.
                   </p>
                 </div>
                 <h3 className="text-xl font-semibold text-fuchsia-900 mb-2 mt-8">
-                Prof. Ngozi Finette (Stewart) Unuigbe
+                  Prof. Ngozi Finette (Stewart) Unuigbe
                 </h3>
                 <p className="text-sm text-gray-600 italic mb-1">
-                  Director, Directorate of Research, Innovation and Development (DRID)
+                  Director, Directorate of Research, Innovation and Development
+                  (DRID)
                 </p>
                 <p className="text-sm text-gray-600 italic mb-4">
                   University of Benin, Nigeria.
