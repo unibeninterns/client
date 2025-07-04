@@ -4,7 +4,6 @@ import { useContext, useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { AuthContext } from "@/lib/auth";
-import { Button } from "@/components/ui/button";
 import {
   LayoutDashboard,
   FileText,
@@ -13,21 +12,29 @@ import {
   LogOut,
   Menu,
   X,
-  ChevronRight,
+  ChevronUp,
+  ChevronDown,
+  Shield,
 } from "lucide-react";
 
 export default function AdminDashboardLayout({ children }) {
   const { user, logout, isAdmin, loading } = useContext(AuthContext);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [submenuOpen, setSubmenuOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
-  // If still loading or user is not admin, don't render anything
   if (loading || !user || !isAdmin) {
     return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="flex h-screen w-full items-center justify-center bg-gradient-to-br from-fuchsia-50 to-white">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-fuchsia-600 rounded-full mb-4 shadow-lg">
+            <Shield className="h-8 w-8 text-white animate-pulse" />
+          </div>
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-fuchsia-600 border-t-transparent mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading admin dashboard...</p>
+        </div>
       </div>
     );
   }
@@ -42,13 +49,9 @@ export default function AdminDashboardLayout({ children }) {
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      // Wait for the logout process to complete
-      // This will make API call to backend and clear local tokens
       await logout();
-      // Router push to login page is handled inside the logout function
     } catch (error) {
       console.error("Logout failed:", error);
-      // In case of error, try to redirect anyway
       router.push("/admin-login");
     } finally {
       setIsLoggingOut(false);
@@ -56,150 +59,179 @@ export default function AdminDashboardLayout({ children }) {
   };
 
   return (
-    <div className="h-screen flex overflow-hidden bg-gray-100">
+    <div className="min-h-screen bg-fuchsia-50">
       {/* Mobile sidebar */}
-      <div className="md:hidden">
-        <div
-          className={`fixed inset-0 bg-gray-600 bg-opacity-75 z-40 transition-opacity ease-linear duration-300 ${sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-        />
-        <div
-          className={`fixed inset-y-0 left-0 flex flex-col z-40 w-72 bg-white shadow-xl transform ease-in-out duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
-        >
-          <div className="flex items-center justify-between px-4 py-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-800">
-              Admin Dashboard
-            </h2>
-            <button
-              className="p-1 text-gray-500 focus:outline-none"
-              onClick={() => setSidebarOpen(false)}
-            >
-              <X className="h-6 w-6" />
-            </button>
-          </div>
-          <div className="flex-1 overflow-y-auto">
-            <nav className="px-2 py-4 space-y-1">
-              {navigation.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setSidebarOpen(false)}
-                    className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${
-                      isActive
-                        ? "bg-blue-50 text-blue-700"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    <item.icon
-                      className={`mr-3 h-5 w-5 ${
-                        isActive ? "text-blue-700" : "text-gray-400"
-                      }`}
-                    />
-                    {item.name}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-          <div className="flex-shrink-0 border-t border-gray-200 p-4">
-            <Button
-              variant="ghost"
-              className="flex items-center w-full text-sm font-medium text-gray-700"
-              onClick={handleLogout}
-              disabled={isLoggingOut}
-            >
-              {isLoggingOut ? (
-                <div className="mr-3 h-5 w-5 animate-spin rounded-full border-2 border-t-blue-500"></div>
-              ) : (
-                <LogOut className="mr-3 h-5 w-5 text-gray-400" />
-              )}
-              {isLoggingOut ? "Logging out..." : "Logout"}
-            </Button>
-          </div>
+      <div
+        id="mobile-sidebar"
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-fuchsia-800 transform transition-transform duration-300 ease-in-out md:hidden ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between px-4 h-16">
+          <div className="text-xl font-bold text-white">Admin Portal</div>
+          <button
+            className="p-1 text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-700 rounded-md"
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close sidebar"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+        <div className="mt-5 px-2">
+          <nav className="space-y-1">
+            {navigation.map((item) => {
+              const isActive = pathname === item.href;
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`${
+                    isActive
+                      ? "bg-fuchsia-700 text-white"
+                      : "text-fuchsia-100 hover:bg-fuchsia-700"
+                  } group flex items-center px-2 py-2 text-base font-medium rounded-md`}
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  <Icon className="mr-3 h-6 w-6" />
+                  {item.name}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+        <div className="absolute bottom-0 w-full border-t border-fuchsia-700 p-4">
+          <button
+            onClick={handleLogout}
+            className="flex items-center text-fuchsia-100 hover:text-white w-full"
+            disabled={isLoggingOut}
+          >
+            <LogOut className="h-6 w-6 mr-3" />
+            {isLoggingOut ? "Logging out..." : "Logout"}
+          </button>
         </div>
       </div>
 
-      {/* Static sidebar for desktop */}
-      <div className="hidden md:flex md:flex-shrink-0">
-        <div className="flex flex-col w-64">
-          <div className="flex flex-col h-0 flex-1 bg-white border-r border-gray-200">
-            <div className="flex items-center h-16 flex-shrink-0 px-4 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-800">
-                Admin Dashboard
-              </h2>
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-gray-300 bg-opacity-40 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        ></div>
+      )}
+
+      {/* Main layout grid */}
+      <div className="flex h-screen overflow-hidden">
+        {/* Desktop sidebar */}
+        <div className="hidden md:flex md:flex-shrink-0">
+          <div className="flex flex-col w-64 bg-fuchsia-800">
+            <div className="flex h-16 flex-shrink-0 items-center px-4">
+              <div className="text-xl font-bold text-white">Admin Portal</div>
             </div>
-            <div className="flex-1 flex flex-col overflow-y-auto">
-              <nav className="flex-1 px-2 py-4 space-y-1">
+            <div className="flex flex-1 flex-col overflow-y-auto">
+              <nav className="flex-1 space-y-1 px-2 py-4">
                 {navigation.map((item) => {
                   const isActive = pathname === item.href;
+                  const Icon = item.icon;
                   return (
                     <Link
                       key={item.name}
                       href={item.href}
-                      className={`flex items-center px-3 py-2 text-sm font-medium rounded-md ${
+                      className={`${
                         isActive
-                          ? "bg-blue-50 text-blue-700"
-                          : "text-gray-700 hover:bg-gray-50"
-                      }`}
+                          ? "bg-fuchsia-700 text-white"
+                          : "text-fuchsia-100 hover:bg-fuchsia-700"
+                      } group flex items-center px-2 py-2 text-sm font-medium rounded-md`}
                     >
-                      <item.icon
-                        className={`mr-3 h-5 w-5 ${
-                          isActive ? "text-blue-700" : "text-gray-400"
-                        }`}
-                      />
+                      <Icon className="mr-3 h-5 w-5" />
                       {item.name}
                     </Link>
                   );
                 })}
               </nav>
             </div>
-            <div className="flex-shrink-0 border-t border-gray-200 p-4">
-              <Button
-                variant="ghost"
-                className="flex items-center w-full text-sm font-medium text-gray-700"
-                onClick={handleLogout}
-                disabled={isLoggingOut}
-              >
-                {isLoggingOut ? (
-                  <div className="mr-3 h-5 w-5 animate-spin rounded-full border-2 border-t-blue-500"></div>
-                ) : (
-                  <LogOut className="mr-3 h-5 w-5 text-gray-400" />
+            <div className="flex flex-shrink-0 border-t border-fuchsia-700 p-4">
+              <div className="group w-full flex flex-col">
+                <button
+                  className="w-full flex items-center justify-between text-left"
+                  onClick={() => setSubmenuOpen(!submenuOpen)}
+                >
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-fuchsia-100 rounded-full flex items-center justify-center mr-3">
+                      <span className="text-fuchsia-800 font-medium text-sm">
+                        {user?.name?.charAt(0) || "A"}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-white">
+                        {user?.name || "Admin"}
+                      </p>
+                      <p className="text-xs font-medium text-fuchsia-200">
+                        {user?.email || "admin@uniben.edu"}
+                      </p>
+                    </div>
+                  </div>
+                  {submenuOpen ? (
+                    <ChevronUp className="h-5 w-5 text-fuchsia-200" />
+                  ) : (
+                    <ChevronDown className="h-5 w-5 text-fuchsia-200" />
+                  )}
+                </button>
+                {submenuOpen && (
+                  <div className="mt-3 space-y-1">
+                    <button
+                      onClick={handleLogout}
+                      className="flex w-full items-center rounded-md py-2 pl-9 pr-2 text-sm font-medium text-fuchsia-100 hover:bg-fuchsia-800 hover:text-white"
+                      disabled={isLoggingOut}
+                    >
+                      <LogOut className="h-5 w-5 mr-2" />
+                      {isLoggingOut ? "Logging out..." : "Sign Out"}
+                    </button>
+                  </div>
                 )}
-                {isLoggingOut ? "Logging out..." : "Logout"}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main content */}
-      <div className="flex flex-col flex-1 overflow-hidden">
-        {/* Top header */}
-        <header className="bg-white shadow-sm z-10">
-          <div className="flex items-center justify-between h-16 px-4 md:px-6">
-            <div className="flex items-center md:hidden">
-              <button
-                onClick={() => setSidebarOpen(true)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
-              >
-                <Menu className="h-6 w-6" />
-              </button>
-            </div>
-            <div className="flex items-center">
-              <div className="ml-3 relative">
-                <div className="text-sm font-medium text-gray-700">
-                  {user?.name || "Admin"}
-                </div>
               </div>
             </div>
           </div>
-        </header>
+        </div>
 
-        {/* Main content area */}
-        <main className="flex-1 relative overflow-y-auto focus:outline-none bg-gray-100">
-          <div className="py-6 px-4 sm:px-6 md:px-8">{children}</div>
-        </main>
+        {/* Content area */}
+        <div className="flex flex-col flex-1 overflow-hidden">
+          {/* Mobile header */}
+          <div className="md:hidden">
+            <div className="flex items-center justify-between bg-white px-4 py-2 shadow-sm h-16">
+              <button
+                id="sidebar-toggle"
+                type="button"
+                className="text-fuchsia-800 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 p-2"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                aria-label="Open sidebar"
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+              <div className="text-lg font-semibold text-fuchsia-800">
+                Admin Portal
+              </div>
+              <div className="text-sm text-fuchsia-800">
+                {user?.name || "Admin"}
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop header */}
+          <div className="hidden md:block sticky top-0 z-10 flex-shrink-0 bg-white shadow-sm">
+            <div className="px-6 py-4">
+              <h1 className="text-2xl font-semibold text-fuchsia-800">
+                Admin Portal
+              </h1>
+            </div>
+          </div>
+
+          {/* Main content */}
+          <main className="flex-1 overflow-y-auto bg-fuchsia-50">
+            <div className="py-6 px-4 sm:px-6 md:px-8">{children}</div>
+          </main>
+        </div>
       </div>
     </div>
   );

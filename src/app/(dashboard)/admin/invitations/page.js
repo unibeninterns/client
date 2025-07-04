@@ -3,10 +3,25 @@
 import { useState, useEffect } from "react";
 import { withAdminAuth } from "@/lib/auth";
 import { authApi } from "@/lib/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, Mail, Check, AlertCircle, Clock, X } from "lucide-react";
+import {
+  RefreshCw,
+  Mail,
+  Check,
+  AlertCircle,
+  User,
+  Clock,
+  X,
+} from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { UserPlus } from "lucide-react";
 import {
@@ -20,6 +35,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import Image from "next/image";
 
 function AdminInvitationsPage() {
   const [invitations, setInvitations] = useState([]);
@@ -285,125 +301,196 @@ function AdminInvitationsPage() {
               Add Researcher
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[550px]">
-            <DialogHeader>
-              <DialogTitle>Add Researcher Profile</DialogTitle>
-              <DialogDescription>
-                Create a new researcher profile directly. The researcher will
-                receive login credentials by email.
-              </DialogDescription>
-            </DialogHeader>
+          <DialogContent className="sm:max-w-[600px] p-0 bg-gradient-to-br from-fuchsia-50 via-white to-fuchsia-100 rounded-xl shadow-xl border-0 max-h-[90vh] overflow-y-auto">
+            <Card className="shadow-none border-0 bg-transparent">
+              <CardHeader className="space-y-1 pb-6 text-center">
+                <CardTitle className="text-2xl font-bold text-gray-900">
+                  Add Researcher Profile
+                </CardTitle>
+                <CardDescription className="text-center text-gray-600">
+                  Create a new researcher profile directly. The researcher will
+                  receive login credentials by email.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {error && (
+                  <Alert
+                    variant="destructive"
+                    className="mb-6 border-red-200 bg-red-50"
+                  >
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription className="text-red-700">
+                      {error}
+                    </AlertDescription>
+                  </Alert>
+                )}
 
-            <form onSubmit={handleAddResearcher} className="space-y-4 py-4">
-              {error && (
-                <Alert variant="destructive" className="mb-4">
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
+                {success && (
+                  <Alert className="mb-6 bg-green-50 border-green-200">
+                    <Check className="h-4 w-4 text-green-500" />
+                    <AlertDescription className="text-green-700">
+                      {success}
+                    </AlertDescription>
+                  </Alert>
+                )}
 
-              {success && (
-                <Alert className="mb-4 bg-green-50 border-green-200">
-                  <Check className="h-4 w-4 text-green-500" />
-                  <AlertDescription className="text-green-700">
-                    {success}
-                  </AlertDescription>
-                </Alert>
-              )}
+                <form onSubmit={handleAddResearcher} className="space-y-6">
+                  {/* Profile Picture */}
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      Profile Picture (Optional)
+                    </label>
+                    <div className="flex items-center gap-6">
+                      <div className="relative">
+                        {researcherForm.profilePicture ? (
+                          <Image
+                            src={URL.createObjectURL(
+                              researcherForm.profilePicture
+                            )}
+                            alt="Profile preview"
+                            width={80}
+                            height={80}
+                            className="w-20 h-20 rounded-full object-cover border-4 border-fuchsia-100 shadow-lg"
+                          />
+                        ) : (
+                          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-fuchsia-100 to-fuchsia-200 flex items-center justify-center border-4 border-fuchsia-100 shadow-lg">
+                            <User className="h-8 w-8 text-fuchsia-600" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <Input
+                          id="researcher-pic"
+                          name="profilePicture"
+                          type="file"
+                          accept="image/jpeg,image/png,image/jpg"
+                          onChange={handleFileChange}
+                          className="cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-fuchsia-50 file:text-fuchsia-700 hover:file:bg-fuchsia-100"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">
+                          Max size: 3MB. Accepted formats: JPEG, PNG, JPG
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="researcher-name">Full Name</Label>
-                  <Input
-                    id="researcher-name"
-                    name="name"
-                    placeholder="Dr. Jane Smith"
-                    value={researcherForm.name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
+                  {/* Form Fields */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="researcher-name"
+                        className="text-sm font-medium text-gray-700"
+                      >
+                        Full Name *
+                      </label>
+                      <Input
+                        id="researcher-name"
+                        name="name"
+                        placeholder="Dr. Jane Smith"
+                        value={researcherForm.name}
+                        onChange={handleInputChange}
+                        className="h-12 border-gray-300 focus:border-fuchsia-500 focus:ring-fuchsia-200"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="researcher-title"
+                        className="text-sm font-medium text-gray-700"
+                      >
+                        Title *
+                      </label>
+                      <Input
+                        id="researcher-title"
+                        name="title"
+                        placeholder="Professor, Dr., Lecturer"
+                        value={researcherForm.title}
+                        onChange={handleInputChange}
+                        className="h-12 border-gray-300 focus:border-fuchsia-500 focus:ring-fuchsia-200"
+                        required
+                      />
+                    </div>
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="researcher-email">Email Address</Label>
-                  <Input
-                    id="researcher-email"
-                    name="email"
-                    type="email"
-                    placeholder="researcher@example.com"
-                    value={researcherForm.email}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="researcher-faculty"
+                      className="text-sm font-medium text-gray-700"
+                    >
+                      Faculty/Department *
+                    </label>
+                    <Input
+                      id="researcher-faculty"
+                      name="faculty"
+                      placeholder="Computer Science"
+                      value={researcherForm.faculty}
+                      onChange={handleInputChange}
+                      className="h-12 border-gray-300 focus:border-fuchsia-500 focus:ring-fuchsia-200"
+                      required
+                    />
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="researcher-faculty">Faculty/Department</Label>
-                  <Input
-                    id="researcher-faculty"
-                    name="faculty"
-                    placeholder="Computer Science"
-                    value={researcherForm.faculty}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="researcher-bio"
+                      className="text-sm font-medium text-gray-700"
+                    >
+                      Bio & Research Interests *
+                    </label>
+                    <Textarea
+                      id="researcher-bio"
+                      name="bio"
+                      placeholder="Tell us about the researcher's background and interests..."
+                      value={researcherForm.bio}
+                      onChange={handleInputChange}
+                      rows={4}
+                      className="min-h-[120px] border-gray-300 focus:border-fuchsia-500 focus:ring-fuchsia-200 resize-none"
+                      required
+                    />
+                    <div className="flex justify-between items-center">
+                      <p className="text-xs text-gray-500 ml-auto">
+                        {researcherForm.bio.length}/500 characters
+                      </p>
+                    </div>
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="researcher-title">Title/Position</Label>
-                  <Input
-                    id="researcher-title"
-                    name="title"
-                    placeholder="Associate Professor"
-                    value={researcherForm.title}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="researcher-bio">Biography</Label>
-                <Textarea
-                  id="researcher-bio"
-                  name="bio"
-                  placeholder="Short biography of the researcher's background and interests..."
-                  value={researcherForm.bio}
-                  onChange={handleInputChange}
-                  rows={4}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="researcher-pic">
-                  Profile Picture (Optional)
-                </Label>
-                <Input
-                  id="researcher-pic"
-                  name="profilePicture"
-                  type="file"
-                  accept="image/jpeg,image/png,image/jpg"
-                  onChange={handleFileChange}
-                />
-                <p className="text-xs text-gray-500">
-                  Max size: 3MB. Accepted formats: JPEG, PNG, JPG
+                  <DialogFooter className="pt-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setShowAddResearcherDialog(false)}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-medium rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          Creating Profile...
+                        </div>
+                      ) : (
+                        "Create Profile"
+                      )}
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </CardContent>
+              <CardFooter className="justify-center pt-6">
+                <p className="text-sm text-gray-500 text-center">
+                  After registration, the researcher will receive login
+                  credentials via email
+                  <br />
+                  <span className="text-xs">
+                    Join our community of researchers and scholars
+                  </span>
                 </p>
-              </div>
-
-              <DialogFooter>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setShowAddResearcherDialog(false)}
-                >
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Creating..." : "Create Profile"}
-                </Button>
-              </DialogFooter>
-            </form>
+              </CardFooter>
+            </Card>
           </DialogContent>
         </Dialog>
       </div>
