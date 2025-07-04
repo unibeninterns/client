@@ -3,7 +3,16 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Users, Eye, MessageSquare, RefreshCw } from "lucide-react";
+import {
+  FileText,
+  Users,
+  Eye,
+  MessageSquare,
+  RefreshCw,
+  TrendingUp,
+  Calendar,
+  BarChart3,
+} from "lucide-react";
 import { withAdminAuth } from "@/lib/auth";
 import { articlesApi, researchersApi, articleViewsApi } from "@/lib/api";
 
@@ -33,14 +42,12 @@ function AdminDashboardPage() {
         setIsLoading(true);
         setError(null);
 
-        // Fetch dashboard data from backend
         const dashboardData = await articlesApi.getDashboardData();
         const researchers = await researchersApi.getResearchers();
         const popularArticles = await articleViewsApi.getPopularArticles(5);
 
         const researchersCount = researchers?.data?.length || 0;
 
-        // Calculate total views
         let totalViews = 0;
         if (dashboardData.recent_articles) {
           dashboardData.recent_articles.forEach((article) => {
@@ -62,7 +69,6 @@ function AdminDashboardPage() {
           loading: false,
         });
 
-        // Format the articles for display
         const formattedArticles =
           dashboardData.recent_articles?.map((article) => ({
             id: article._id,
@@ -74,7 +80,6 @@ function AdminDashboardPage() {
 
         setRecentArticles(formattedArticles);
 
-        // Format popular articles
         if (
           popularArticles &&
           popularArticles.data &&
@@ -103,226 +108,321 @@ function AdminDashboardPage() {
     fetchDashboardData();
   }, []);
 
-  // Display loading state
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <RefreshCw className="h-8 w-8 animate-spin text-blue-500" />
+        <div className="relative">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-fuchsia-100 border-t-fuchsia-500"></div>
+          <div className="absolute inset-0 animate-pulse rounded-full h-12 w-12 bg-fuchsia-50"></div>
+        </div>
       </div>
     );
   }
 
-  // Display error state
   if (error) {
     return (
-      <div className="text-center p-6">
-        <p className="text-red-500 mb-4">{error}</p>
+      <div className="text-center p-8 bg-red-50 rounded-xl border border-red-200">
+        <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+          <RefreshCw className="h-8 w-8 text-red-500" />
+        </div>
+        <p className="text-red-700 mb-4 font-medium">{error}</p>
         <button
           onClick={() => window.location.reload()}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
         >
-          Retry
+          Try Again
         </button>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold tracking-tight">Dashboard Overview</h1>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">
+            Dashboard Overview
+          </h1>
+          <p className="text-gray-600 mt-1">
+            Welcome back! Here&apos;s what&apos;s happening with your research
+            portal.
+          </p>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <Calendar className="h-4 w-4" />
+          {new Date().toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </div>
+      </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Card
-          className="cursor-pointer hover:shadow-md transition-shadow"
+          className="group cursor-pointer hover:shadow-lg transition-all duration-300 border-0 shadow-md bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 hover:-translate-y-1"
           onClick={() => router.push("/admin/articles")}
         >
           <CardContent className="flex items-center justify-between p-6">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-blue-700">
                 Total Articles
               </p>
-              <h3 className="text-2xl font-bold mt-2">{stats.totalArticles}</h3>
+              <h3 className="text-3xl font-bold text-blue-900">
+                {stats.totalArticles}
+              </h3>
             </div>
-            <div className="p-2 bg-blue-100 rounded-full">
-              <FileText className="h-6 w-6 text-blue-500" />
+            <div className="p-3 bg-blue-200 rounded-full group-hover:bg-blue-300 transition-colors">
+              <FileText className="h-6 w-6 text-blue-700" />
             </div>
           </CardContent>
         </Card>
 
         <Card
-          className="cursor-pointer hover:shadow-md transition-shadow"
+          className="group cursor-pointer hover:shadow-lg transition-all duration-300 border-0 shadow-md bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 hover:-translate-y-1"
           onClick={() => router.push("/admin/researchers")}
         >
           <CardContent className="flex items-center justify-between p-6">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">
-                Researchers
-              </p>
-              <h3 className="text-2xl font-bold mt-2">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-green-700">Researchers</p>
+              <h3 className="text-3xl font-bold text-green-900">
                 {stats.totalResearchers}
               </h3>
             </div>
-            <div className="p-2 bg-green-100 rounded-full">
-              <Users className="h-6 w-6 text-green-500" />
+            <div className="p-3 bg-green-200 rounded-full group-hover:bg-green-300 transition-colors">
+              <Users className="h-6 w-6 text-green-700" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="group hover:shadow-lg transition-all duration-300 border-0 shadow-md bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 hover:-translate-y-1">
           <CardContent className="flex items-center justify-between p-6">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">
-                Total Views
-              </p>
-              <h3 className="text-2xl font-bold mt-2">{stats.totalViews}</h3>
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-amber-700">Total Views</p>
+              <h3 className="text-3xl font-bold text-amber-900">
+                {stats.totalViews.toLocaleString()}
+              </h3>
             </div>
-            <div className="p-2 bg-amber-100 rounded-full">
-              <Eye className="h-6 w-6 text-amber-500" />
+            <div className="p-3 bg-amber-200 rounded-full group-hover:bg-amber-300 transition-colors">
+              <Eye className="h-6 w-6 text-amber-700" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="group hover:shadow-lg transition-all duration-300 border-0 shadow-md bg-gradient-to-br from-fuchsia-50 to-fuchsia-100 hover:from-fuchsia-100 hover:to-fuchsia-200 hover:-translate-y-1">
           <CardContent className="flex items-center justify-between p-6">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-fuchsia-700">
                 Research Articles
               </p>
-              <h3 className="text-2xl font-bold mt-2">
+              <h3 className="text-3xl font-bold text-fuchsia-900">
                 {stats.categoryCounts.Research}
               </h3>
             </div>
-            <div className="p-2 bg-purple-100 rounded-full">
-              <MessageSquare className="h-6 w-6 text-purple-500" />
+            <div className="p-3 bg-fuchsia-200 rounded-full group-hover:bg-fuchsia-300 transition-colors">
+              <MessageSquare className="h-6 w-6 text-fuchsia-700" />
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Recent Articles */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Recent Articles</h2>
-        <Card>
+      {/* Charts and Tables Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Recent Articles */}
+        <Card className="shadow-lg border-0 bg-white">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-gray-900">
+              <TrendingUp className="h-5 w-5 text-fuchsia-600" />
+              Recent Articles
+            </CardTitle>
+          </CardHeader>
           <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b">
-                    <th className="px-4 py-3 text-left font-medium">Title</th>
-                    <th className="px-4 py-3 text-left font-medium">
-                      Category
-                    </th>
-                    <th className="px-4 py-3 text-left font-medium">Views</th>
-                    <th className="px-4 py-3 text-left font-medium">Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentArticles.length > 0 ? (
-                    recentArticles.map((article) => (
-                      <tr
-                        key={article.id}
-                        className="border-b hover:bg-gray-50"
-                      >
-                        <td className="px-4 py-3 font-medium">
-                          {article.title}
-                        </td>
-                        <td className="px-4 py-3">{article.category}</td>
-                        <td className="px-4 py-3">{article.views}</td>
-                        <td className="px-4 py-3">{article.date}</td>
-                      </tr>
-                    ))
-                  ) : (
+            <div className="overflow-hidden">
+              <div className="max-h-96 overflow-y-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50 sticky top-0">
                     <tr>
-                      <td colSpan={4} className="px-4 py-3 text-center">
-                        No articles found
-                      </td>
+                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Title
+                      </th>
+                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Category
+                      </th>
+                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Views
+                      </th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {recentArticles.length > 0 ? (
+                      recentArticles.map((article, index) => (
+                        <tr
+                          key={article.id}
+                          className="hover:bg-gray-50 transition-colors"
+                        >
+                          <td className="px-6 py-4">
+                            <div className="flex items-center">
+                              <div className="flex-shrink-0 w-8 h-8 bg-fuchsia-100 rounded-full flex items-center justify-center mr-3">
+                                <span className="text-fuchsia-600 font-semibold text-sm">
+                                  {index + 1}
+                                </span>
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="text-sm font-medium text-gray-900 truncate">
+                                  {article.title}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  {article.date}
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-fuchsia-100 text-fuchsia-800">
+                              {article.category}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="flex items-center">
+                              <Eye className="h-4 w-4 text-gray-400 mr-1" />
+                              <span className="text-sm font-medium text-gray-900">
+                                {article.views}
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan="3"
+                          className="px-6 py-8 text-center text-gray-500"
+                        >
+                          No articles found
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </CardContent>
         </Card>
-      </div>
 
-      {/* Popular Articles */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Most Popular Articles</h2>
-        <Card>
+        {/* Popular Articles */}
+        <Card className="shadow-lg border-0 bg-white">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-gray-900">
+              <BarChart3 className="h-5 w-5 text-fuchsia-600" />
+              Popular Articles
+            </CardTitle>
+          </CardHeader>
           <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b">
-                    <th className="px-4 py-3 text-left font-medium">Title</th>
-                    <th className="px-4 py-3 text-left font-medium">
-                      Category
-                    </th>
-                    <th className="px-4 py-3 text-left font-medium">Views</th>
-                    <th className="px-4 py-3 text-left font-medium">Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {popularArticles.length > 0 ? (
-                    popularArticles.map((article) => (
-                      <tr
-                        key={article.id}
-                        className="border-b hover:bg-gray-50"
-                      >
-                        <td className="px-4 py-3 font-medium">
-                          {article.title}
-                        </td>
-                        <td className="px-4 py-3">{article.category}</td>
-                        <td className="px-4 py-3">{article.views}</td>
-                        <td className="px-4 py-3">{article.date}</td>
-                      </tr>
-                    ))
-                  ) : (
+            <div className="overflow-hidden">
+              <div className="max-h-96 overflow-y-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50 sticky top-0">
                     <tr>
-                      <td colSpan={4} className="px-4 py-3 text-center">
-                        No articles found
-                      </td>
+                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Title
+                      </th>
+                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Category
+                      </th>
+                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Views
+                      </th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {popularArticles.length > 0 ? (
+                      popularArticles.map((article, index) => (
+                        <tr
+                          key={article.id}
+                          className="hover:bg-gray-50 transition-colors"
+                        >
+                          <td className="px-6 py-4">
+                            <div className="flex items-center">
+                              <div className="flex-shrink-0 w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center mr-3">
+                                <span className="text-amber-600 font-semibold text-sm">
+                                  {index + 1}
+                                </span>
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="text-sm font-medium text-gray-900 truncate">
+                                  {article.title}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  {article.date}
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                              {article.category}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4">
+                            <div className="flex items-center">
+                              <TrendingUp className="h-4 w-4 text-amber-500 mr-1" />
+                              <span className="text-sm font-medium text-gray-900">
+                                {article.views}
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan="3"
+                          className="px-6 py-8 text-center text-gray-500"
+                        >
+                          No popular articles found
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Category Distribution */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Category Distribution</h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {Object.entries(stats.categoryCounts).map(([category, count]) => (
-            <Card key={category}>
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-lg mb-2">{category}</h3>
-                <div className="flex items-center">
-                  <div
-                    className={`h-2 rounded-full mr-2 flex-grow ${
-                      category === "Research"
-                        ? "bg-blue-500"
-                        : category === "Innovation"
-                          ? "bg-green-500"
-                          : "bg-amber-500"
-                    }`}
-                    style={{
-                      width: `${Math.max(
-                        (count / (stats.totalArticles || 1)) * 100,
-                        5
-                      )}%`,
-                    }}
-                  />
-                  <span className="font-medium">{count}</span>
+      {/* Category Overview */}
+      <Card className="shadow-lg border-0 bg-white">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-gray-900">
+            <BarChart3 className="h-5 w-5 text-fuchsia-600" />
+            Category Distribution
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {Object.entries(stats.categoryCounts).map(([category, count]) => (
+              <div key={category} className="text-center">
+                <div className="relative inline-flex items-center justify-center w-24 h-24 mb-4">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-fuchsia-100 to-fuchsia-200"></div>
+                  <div className="relative z-10">
+                    <span className="text-2xl font-bold text-fuchsia-700">
+                      {count}
+                    </span>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {category}
+                </h3>
+                <p className="text-sm text-gray-600">Articles</p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
