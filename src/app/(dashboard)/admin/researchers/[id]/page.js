@@ -13,6 +13,8 @@ import {
   Calendar,
   ChevronLeft,
   LinkIcon,
+  BookOpen,
+  BarChart3,
 } from "lucide-react";
 import { authApi } from "@/lib/api";
 import Image from "next/image";
@@ -125,46 +127,42 @@ function AdminResearcherDashboard() {
       {profile && (
         <div className="flex flex-col md:flex-row gap-6 items-start">
           <div className="w-full md:w-3/4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Research Statistics</CardTitle>
+            <Card className="border-fuchsia-100 shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-fuchsia-50 to-fuchsia-100 border-b border-fuchsia-200">
+                <CardTitle className="text-fuchsia-900">
+                  Research Statistics
+                </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-100 rounded-full">
-                      <FileText className="h-6 w-6 text-blue-500" />
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                  <div className="text-center p-4 bg-blue-50 rounded-xl border border-blue-100 hover:bg-blue-100 transition-colors">
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-3">
+                      <FileText className="h-6 w-6 text-blue-600" />
                     </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Total Articles</p>
-                      <p className="text-xl font-bold">
-                        {stats.total_articles || 0}
-                      </p>
-                    </div>
+                    <p className="text-sm text-gray-600 mb-1">Total Articles</p>
+                    <p className="text-2xl font-bold text-blue-600">
+                      {stats.total_articles || 0}
+                    </p>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-green-100 rounded-full">
-                      <Users className="h-6 w-6 text-green-500" />
+                  <div className="text-center p-4 bg-green-50 rounded-xl border border-green-100 hover:bg-green-100 transition-colors">
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-3">
+                      <Users className="h-6 w-6 text-green-600" />
                     </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Collaborations</p>
-                      <p className="text-xl font-bold">
-                        {stats.collaborations || 0}
-                      </p>
-                    </div>
+                    <p className="text-sm text-gray-600 mb-1">Collaborations</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      {stats.collaborations || 0}
+                    </p>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-purple-100 rounded-full">
-                      <Eye className="h-6 w-6 text-purple-500" />
+                  <div className="text-center p-4 bg-purple-50 rounded-xl border border-purple-100 hover:bg-purple-100 transition-colors">
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 rounded-full mb-3">
+                      <Eye className="h-6 w-6 text-purple-600" />
                     </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Total Views</p>
-                      <p className="text-xl font-bold">
-                        {analytics.totalViews || 0}
-                      </p>
-                    </div>
+                    <p className="text-sm text-gray-600 mb-1">Total Views</p>
+                    <p className="text-2xl font-bold text-purple-600">
+                      {analytics.totalViews || 0}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -174,57 +172,88 @@ function AdminResearcherDashboard() {
       )}
 
       {/* Published Articles */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Published Articles</h2>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Published Articles</h2>
+          <div className="text-sm text-gray-500">
+            {articles?.length || 0} articles published
+          </div>
+        </div>
+
         {articles && articles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {articles.slice(0, 6).map((article) => (
               <Link
                 href={`/article/${article._id}`}
                 key={article._id}
-                className="block"
+                className="group bg-white shadow-lg rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105 border border-fuchsia-100 hover:border-fuchsia-200"
               >
-                <Card className="h-full hover:shadow-md transition-shadow">
-                  <div className="aspect-video relative">
-                    {article.cover_photo ? (
-                      <Image
-                        src={getImageUrl(article.cover_photo)}
-                        alt={article.title}
-                        fill
-                        className="object-cover rounded-t-lg"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                        <FileText className="h-12 w-12 text-gray-400" />
-                      </div>
+                <div className="relative">
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="inline-flex items-center px-3 py-1 bg-fuchsia-900 text-white text-xs font-bold rounded-full uppercase tracking-wide">
+                      <BookOpen size={12} className="mr-1" />
+                      {article.category}
+                    </span>
+                  </div>
+                  {article.cover_photo ? (
+                    <Image
+                      src={getImageUrl(article.cover_photo)}
+                      alt={article.title}
+                      width={400}
+                      height={240}
+                      className="w-full h-48 sm:h-56 object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-48 sm:h-56 bg-gradient-to-br from-fuchsia-100 to-fuchsia-200 flex items-center justify-center">
+                      <FileText size={48} className="text-fuchsia-400" />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-fuchsia-900 mb-3 line-clamp-2 group-hover:text-fuchsia-700 transition-colors">
+                    {article.title}
+                  </h3>
+
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+                    {article.summary}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {article.department?.title && (
+                      <span className="px-2 py-1 bg-fuchsia-100 text-fuchsia-700 text-xs rounded-full">
+                        {article.department.title}
+                      </span>
                     )}
                   </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-semibold line-clamp-2 mb-2">
-                      {article.title}
-                    </h3>
-                    <p className="text-sm text-gray-500 line-clamp-3 mb-3">
-                      {article.summary}
-                    </p>
-                    <div className="flex justify-between items-center text-xs text-gray-500">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
+
+                  <div className="flex justify-between items-center text-xs text-gray-500 pt-4 border-t border-fuchsia-50">
+                    <div className="flex items-center gap-1">
+                      <Calendar size={12} />
+                      <span>
                         {new Date(article.publish_date).toLocaleDateString()}
                       </span>
-                      <span className="flex items-center gap-1">
-                        <Eye className="h-3 w-3" />
-                        {article.views?.count || 0}
-                      </span>
                     </div>
-                  </CardContent>
-                </Card>
+                    <div className="flex items-center gap-1">
+                      <Eye size={12} />
+                      <span>{article.views?.count || 0} views</span>
+                    </div>
+                  </div>
+                </div>
               </Link>
             ))}
           </div>
         ) : (
-          <Card>
-            <CardContent className="p-6 text-center">
-              <p className="text-gray-500">No published articles found.</p>
+          <Card className="border-dashed border-2 border-gray-200">
+            <CardContent className="p-8 text-center">
+              <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500 text-lg">
+                No published articles found.
+              </p>
+              <p className="text-sm text-gray-400 mt-2">
+                Articles will appear here once published.
+              </p>
             </CardContent>
           </Card>
         )}
@@ -232,54 +261,83 @@ function AdminResearcherDashboard() {
 
       {/* Most Popular Articles */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Popular Articles</h2>
-        <Card>
+        <Card className="shadow-lg border-fuchsia-100">
+          <CardHeader className="bg-gradient-to-r from-fuchsia-50 to-fuchsia-100 border-b border-fuchsia-200">
+            <CardTitle className="text-fuchsia-900">Popular Articles</CardTitle>
+          </CardHeader>
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b">
-                    <th className="px-4 py-3 text-left font-medium">Title</th>
-                    <th className="px-4 py-3 text-left font-medium">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-4 text-left font-semibold text-gray-900">
+                      Title
+                    </th>
+                    <th className="px-6 py-4 text-left font-semibold text-gray-900">
                       Category
                     </th>
-                    <th className="px-4 py-3 text-left font-medium">Views</th>
-                    <th className="px-4 py-3 text-left font-medium">
+                    <th className="px-6 py-4 text-left font-semibold text-gray-900">
+                      Views
+                    </th>
+                    <th className="px-6 py-4 text-left font-semibold text-gray-900">
                       Published
                     </th>
-                    <th className="px-4 py-3 text-left font-medium">Action</th>
+                    <th className="px-6 py-4 text-left font-semibold text-gray-900">
+                      Action
+                    </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-gray-100">
                   {articles && articles.length > 0 ? (
                     articles
                       .sort(
                         (a, b) => (b.views?.count || 0) - (a.views?.count || 0)
                       )
                       .slice(0, 5)
-                      .map((article) => (
+                      .map((article, index) => (
                         <tr
                           key={article._id}
-                          className="border-b hover:bg-gray-50"
+                          className="hover:bg-fuchsia-50 transition-colors"
                         >
-                          <td className="px-4 py-3 font-medium">
-                            {article.title}
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-3">
+                              <div className="flex-shrink-0 w-8 h-8 bg-fuchsia-100 rounded-full flex items-center justify-center text-fuchsia-600 font-bold text-sm">
+                                {index + 1}
+                              </div>
+                              <div>
+                                <p className="font-medium text-gray-900 line-clamp-1">
+                                  {article.title}
+                                </p>
+                                <p className="text-xs text-gray-500 line-clamp-1">
+                                  {article.summary}
+                                </p>
+                              </div>
+                            </div>
                           </td>
-                          <td className="px-4 py-3">{article.category}</td>
-                          <td className="px-4 py-3">
-                            {article.views?.count || 0}
+                          <td className="px-6 py-4">
+                            <span className="px-2 py-1 bg-fuchsia-100 text-fuchsia-700 text-xs rounded-full">
+                              {article.category}
+                            </span>
                           </td>
-                          <td className="px-4 py-3">
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-1">
+                              <Eye className="h-4 w-4 text-gray-400" />
+                              <span className="font-medium">
+                                {article.views?.count || 0}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 text-gray-600">
                             {new Date(
                               article.publish_date
                             ).toLocaleDateString()}
                           </td>
-                          <td className="px-4 py-3">
+                          <td className="px-6 py-4">
                             <Link
                               href={`/article/${article._id}`}
-                              className="flex items-center text-blue-500 hover:text-blue-700"
+                              className="inline-flex items-center gap-1 text-fuchsia-600 hover:text-fuchsia-700 font-medium transition-colors"
                             >
-                              <LinkIcon className="h-4 w-4 mr-1" />
+                              <LinkIcon className="h-4 w-4" />
                               View
                             </Link>
                           </td>
@@ -287,7 +345,11 @@ function AdminResearcherDashboard() {
                       ))
                   ) : (
                     <tr>
-                      <td colSpan={5} className="px-4 py-3 text-center">
+                      <td
+                        colSpan={5}
+                        className="px-6 py-8 text-center text-gray-500"
+                      >
+                        <FileText className="h-8 w-8 text-gray-400 mx-auto mb-2" />
                         No articles found
                       </td>
                     </tr>
@@ -341,39 +403,34 @@ function AdminResearcherDashboard() {
       {/* Category Distribution */}
       {analytics.categoriesDistribution &&
         analytics.categoriesDistribution.length > 0 && (
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Research Categories</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {analytics.categoriesDistribution.map((category) => (
-                <Card key={category._id}>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-lg mb-2">
+          <Card className="shadow-lg border-0 bg-white">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-gray-900">
+                <BarChart3 className="h-5 w-5 text-fuchsia-600" />
+                Category Distribution
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {analytics.categoriesDistribution.map((category) => (
+                  <div key={category._id} className="text-center">
+                    <div className="relative inline-flex items-center justify-center w-24 h-24 mb-4">
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-fuchsia-100 to-fuchsia-200"></div>
+                      <div className="relative z-10">
+                        <span className="text-2xl font-bold text-fuchsia-700">
+                          {category.count}
+                        </span>
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900">
                       {category._id}
                     </h3>
-                    <div className="flex items-center">
-                      <div
-                        className={`h-2 rounded-full mr-2 flex-grow ${
-                          category._id === "Research"
-                            ? "bg-blue-500"
-                            : category._id === "Innovation"
-                              ? "bg-green-500"
-                              : "bg-amber-500"
-                        }`}
-                        style={{
-                          width: `${Math.max(
-                            (category.count / (stats.total_articles || 1)) *
-                              100,
-                            5
-                          )}%`,
-                        }}
-                      />
-                      <span className="font-medium">{category.count}</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
+                    <p className="text-sm text-gray-600">Articles</p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         )}
     </div>
   );

@@ -106,9 +106,14 @@ function ResearchersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold tracking-tight">Researchers</h1>
-        <Button onClick={() => (window.location.href = "/admin/invitations")}>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <h1 className="text-2xl text-fuchsia-800 font-bold tracking-tight">
+          Researchers
+        </h1>
+        <Button
+          onClick={() => (window.location.href = "/admin/invitations")}
+          className="w-full sm:w-auto bg-fuchsia-800 hover:bg-fuchsia-900 text-white"
+        >
           <Mail className="mr-2 h-4 w-4" />
           Manage Invitations
         </Button>
@@ -129,14 +134,14 @@ function ResearchersPage() {
       )}
 
       {/* Search */}
-      <div className="relative">
+      <div className="relative max-w-md">
         <Search
           className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
           size={18}
         />
         <Input
-          className="pl-10"
-          placeholder="Search researchers by name, email or faculty..."
+          className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent"
+          placeholder="Search researchers..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -144,84 +149,95 @@ function ResearchersPage() {
 
       {/* Researchers List */}
       <Card>
-        <CardHeader>
-          <CardTitle>
-            Active Researchers ({filteredResearchers.length})
+        <CardHeader className="border-b border-gray-100">
+          <CardTitle className="flex items-center justify-between">
+            <span>Active Researchers ({filteredResearchers.length})</span>
+            <div className="text-sm text-gray-500">
+              {filteredResearchers.length} of {researchers.length} researchers
+            </div>
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           {filteredResearchers.length === 0 ? (
-            <div className="p-6 text-center text-gray-500">
-              {searchTerm
-                ? "No researchers match your search."
-                : "No researchers found."}
+            <div className="p-8 text-center">
+              <User className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <p className="text-gray-500 text-lg">
+                {searchTerm
+                  ? "No researchers match your search."
+                  : "No researchers found."}
+              </p>
             </div>
           ) : (
-            <div className="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="divide-y divide-gray-100">
               {filteredResearchers.map((researcher) => (
-                <Card key={researcher._id} className="overflow-hidden">
-                  <div className="flex items-center justify-center bg-gray-100 h-40">
-                    {researcher.profilePicture ? (
-                      <div className="relative h-40 w-full">
-                        <Image
-                          src={getImageUrl(researcher.profilePicture)}
-                          alt={`${researcher.name}'s profile`}
-                          fill
-                          sizes="100%"
-                          style={{ objectFit: "cover" }}
-                          priority
-                        />
+                <div
+                  key={researcher._id}
+                  className="p-4 sm:p-6 hover:bg-fuchsia-50 transition-colors duration-200 group"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    {/* Researcher Info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-12 h-12 bg-fuchsia-100 rounded-full flex items-center justify-center group-hover:bg-fuchsia-200 transition-colors">
+                          <User className="h-6 w-6 text-fuchsia-600" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-semibold text-gray-900 group-hover:text-fuchsia-900 transition-colors">
+                            {researcher.name}
+                          </h3>
+                          <p className="text-sm text-gray-600 mb-1">
+                            {researcher.title}
+                          </p>
+
+                          {/* Contact and Meta Info */}
+                          <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+                            <div className="flex items-center gap-1">
+                              <Mail className="h-4 w-4" />
+                              <span className="truncate max-w-[200px]">
+                                {researcher.email}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Building className="h-4 w-4" />
+                              <span>{researcher.faculty}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <CalendarClock className="h-4 w-4" />
+                              <span>
+                                Joined {formatDate(researcher.createdAt)}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    ) : (
-                      <User className="h-16 w-16 text-gray-400" />
-                    )}
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-bold text-lg mb-1">
-                      {researcher.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground mb-2">
-                      {researcher.title}
-                    </p>
-
-                    <div className="flex items-center text-sm mb-1">
-                      <Mail className="h-4 w-4 mr-2 text-gray-500" />
-                      <span className="truncate">{researcher.email}</span>
                     </div>
 
-                    <div className="flex items-center text-sm mb-1">
-                      <Building className="h-4 w-4 mr-2 text-gray-500" />
-                      <span>{researcher.faculty}</span>
-                    </div>
-
-                    <div className="flex items-center text-sm mb-3">
-                      <CalendarClock className="h-4 w-4 mr-2 text-gray-500" />
-                      <span>Joined {formatDate(researcher.createdAt)}</span>
-                    </div>
-
-                    <div className="flex justify-between pt-2 border-t">
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-2 sm:flex-shrink-0">
                       <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleDeleteClick(researcher)}
-                      >
-                        <Trash2 className="h-4 w-4 mr-1 text-red-500" />
-                        <span className="text-red-500">Remove</span>
-                      </Button>
-
-                      <Button
-                        variant="ghost"
+                        variant="outline"
                         size="sm"
                         onClick={() =>
                           router.push(`/admin/researchers/${researcher._id}`)
                         }
+                        className="flex items-center gap-2 hover:bg-fuchsia-50 hover:border-fuchsia-300 transition-all"
                       >
-                        <ExternalLink className="h-4 w-4 mr-1" />
-                        <span>View Profile</span>
+                        <ExternalLink className="h-4 w-4" />
+                        <span className="hidden sm:inline">View Profile</span>
+                      </Button>
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDeleteClick(researcher)}
+                        className="flex items-center gap-2 text-red-600 hover:bg-red-50 hover:border-red-300 transition-all"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                        <span className="hidden sm:inline">Remove</span>
                       </Button>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               ))}
             </div>
           )}
