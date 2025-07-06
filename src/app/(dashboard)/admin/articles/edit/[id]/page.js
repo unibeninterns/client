@@ -27,6 +27,7 @@ import {
   Image as ImageIcon,
   Save,
   RefreshCw,
+  X,
 } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
 import Link from "next/link";
@@ -274,7 +275,11 @@ function EditArticlePage() {
   return (
     <div className="container mx-auto max-w-4xl px-4 py-8">
       <div className="mb-6">
-        <Button variant="outline" asChild>
+        <Button
+          variant="outline"
+          asChild
+          className="border-fuchsia-200 text-fuchsia-600 hover:bg-fuchsia-50"
+        >
           <Link href="/admin/articles">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Articles
@@ -282,11 +287,16 @@ function EditArticlePage() {
         </Button>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-6">
-        <h1 className="text-2xl font-bold mb-6">Edit Article</h1>
+      <div className="bg-gradient-to-br from-white to-fuchsia-50 rounded-xl shadow-lg border border-fuchsia-100 p-6 md:p-8">
+        <h1 className="text-2xl font-bold mb-6 bg-gradient-to-r from-fuchsia-600 to-purple-600 bg-clip-text text-transparent">
+          Edit Article
+        </h1>
 
         {error && (
-          <Alert variant="destructive" className="mb-6">
+          <Alert
+            variant="destructive"
+            className="mb-6 border-red-200 bg-red-50"
+          >
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Error</AlertTitle>
             <AlertDescription>{error}</AlertDescription>
@@ -294,27 +304,39 @@ function EditArticlePage() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Title */}
           <div className="space-y-2">
-            <Label htmlFor="title">Title*</Label>
+            <Label
+              htmlFor="title"
+              className="text-sm font-medium text-gray-700"
+            >
+              Title*
+            </Label>
             <Input
               id="title"
               name="title"
               placeholder="Enter article title"
               value={formData.title}
               onChange={handleInputChange}
+              className="border-fuchsia-200 focus:border-fuchsia-500 focus:ring-fuchsia-500"
               required
             />
           </div>
 
-          {/* Add Summary field with word count */}
+          {/* Summary */}
           <div className="space-y-2">
-            <div className="flex justify-between">
-              <Label htmlFor="summary">Summary* (50 words max)</Label>
+            <div className="flex justify-between items-center">
+              <Label
+                htmlFor="summary"
+                className="text-sm font-medium text-gray-700"
+              >
+                Summary* (50 words max)
+              </Label>
               <span
-                className={`text-sm ${
+                className={`text-xs px-2 py-1 rounded-full ${
                   summaryWordCount > 50
-                    ? "text-red-500 font-medium"
-                    : "text-gray-500"
+                    ? "bg-red-100 text-red-600"
+                    : "bg-fuchsia-100 text-fuchsia-600"
                 }`}
               >
                 {summaryWordCount}/50 words
@@ -326,19 +348,25 @@ function EditArticlePage() {
               placeholder="Enter a brief summary of the article"
               value={formData.summary}
               onChange={handleInputChange}
-              className="min-h-[100px]"
+              className="min-h-[100px] border-fuchsia-200 focus:border-fuchsia-500 focus:ring-fuchsia-500"
               required
             />
           </div>
 
+          {/* Category & Contributors */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="category">Category*</Label>
+              <Label
+                htmlFor="category"
+                className="text-sm font-medium text-gray-700"
+              >
+                Category*
+              </Label>
               <Select
                 value={formData.category}
                 onValueChange={handleCategoryChange}
               >
-                <SelectTrigger>
+                <SelectTrigger className="border-fuchsia-200 focus:border-fuchsia-500">
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
                 <SelectContent>
@@ -350,20 +378,29 @@ function EditArticlePage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="contributors">Contributors*</Label>
-              <div className="border rounded-md p-2 max-h-32 overflow-y-auto">
+              <Label
+                htmlFor="contributors"
+                className="text-sm font-medium text-gray-700"
+              >
+                Contributors*
+              </Label>
+              <div className="border border-fuchsia-200 rounded-md p-3 max-h-32 overflow-y-auto bg-white">
                 {researchers.map((researcher) => (
                   <div
                     key={researcher._id}
-                    className="flex items-center space-x-2 py-1"
+                    className="flex items-center space-x-2 py-1 hover:bg-fuchsia-50 px-2 rounded transition-colors"
                   >
                     <input
                       type="checkbox"
                       id={`contributor-${researcher._id}`}
                       checked={formData.contributors.includes(researcher._id)}
                       onChange={() => handleContributorToggle(researcher._id)}
+                      className="text-fuchsia-600 focus:ring-fuchsia-500"
                     />
-                    <label htmlFor={`contributor-${researcher._id}`}>
+                    <label
+                      htmlFor={`contributor-${researcher._id}`}
+                      className="text-sm cursor-pointer flex-1"
+                    >
                       {researcher.name}
                     </label>
                   </div>
@@ -372,18 +409,21 @@ function EditArticlePage() {
             </div>
           </div>
 
+          {/* Faculty & Department */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="faculty">Faculty*</Label>
+              <Label
+                htmlFor="faculty"
+                className="text-sm font-medium text-gray-700"
+              >
+                Faculty*
+              </Label>
               <Select
                 value={formData.faculty}
                 onValueChange={handleFacultyChange}
               >
-                <SelectTrigger className="truncate">
-                  <SelectValue
-                    placeholder="Select faculty"
-                    className="truncate max-w-full"
-                  />
+                <SelectTrigger className="border-fuchsia-200 focus:border-fuchsia-500">
+                  <SelectValue placeholder="Select faculty" />
                 </SelectTrigger>
                 <SelectContent>
                   {Array.isArray(faculties) &&
@@ -391,7 +431,6 @@ function EditArticlePage() {
                       <SelectItem
                         key={faculty._id}
                         value={faculty.code}
-                        className="truncate"
                         title={faculty.title}
                       >
                         {faculty.title.length > 30
@@ -402,21 +441,26 @@ function EditArticlePage() {
                 </SelectContent>
               </Select>
             </div>
+
             <div className="space-y-2">
-              <Label htmlFor="department">Department*</Label>
+              <Label
+                htmlFor="department"
+                className="text-sm font-medium text-gray-700"
+              >
+                Department*
+              </Label>
               <Select
                 value={formData.department}
                 onValueChange={handleDepartmentChange}
                 disabled={!formData.faculty}
               >
-                <SelectTrigger className="truncate max-w-full">
+                <SelectTrigger className="border-fuchsia-200 focus:border-fuchsia-500 disabled:opacity-50">
                   <SelectValue
                     placeholder={
                       formData.faculty
                         ? "Select department"
                         : "Select faculty first"
                     }
-                    className="truncate"
                   />
                 </SelectTrigger>
                 <SelectContent>
@@ -424,7 +468,6 @@ function EditArticlePage() {
                     <SelectItem
                       key={department._id}
                       value={department.code}
-                      className="truncate"
                       title={department.title}
                     >
                       {department.title.length > 30
@@ -437,9 +480,15 @@ function EditArticlePage() {
             </div>
           </div>
 
+          {/* Cover Photo */}
           <div className="space-y-2">
-            <Label htmlFor="cover_photo">Cover Photo</Label>
-            <div className="mt-1 flex items-center">
+            <Label
+              htmlFor="cover_photo"
+              className="text-sm font-medium text-gray-700"
+            >
+              Cover Photo
+            </Label>
+            <div className="flex items-center gap-4">
               <Input
                 id="cover_photo"
                 name="cover_photo"
@@ -450,30 +499,50 @@ function EditArticlePage() {
               />
               <label
                 htmlFor="cover_photo"
-                className="cursor-pointer px-4 py-2 border rounded-md text-sm flex items-center"
+                className="cursor-pointer px-4 py-2 border border-fuchsia-200 rounded-md text-sm flex items-center hover:bg-fuchsia-50 transition-colors"
               >
                 <ImageIcon className="mr-2 h-4 w-4" />
                 {formData.cover_photo ? "Change Image" : "Upload Image"}
               </label>
               {coverPhotoPreview && (
-                <div className="ml-4">
+                <div className="relative">
                   <Image
                     src={getImageUrl(coverPhotoPreview)}
                     alt="Cover preview"
-                    className="w-16 h-16 object-cover rounded-md"
+                    className="w-16 h-16 object-cover rounded-lg border border-fuchsia-200"
                     width={64}
                     height={64}
                   />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFormData((prev) => ({ ...prev, cover_photo: null }));
+                      setCoverPhotoPreview(null);
+                    }}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
                 </div>
               )}
             </div>
           </div>
 
+          {/* Content */}
           <div className="space-y-2">
-            <div className="flex justify-between">
-              <Label htmlFor="content">Content*</Label>
+            <div className="flex justify-between items-center">
+              <Label
+                htmlFor="content"
+                className="text-sm font-medium text-gray-700"
+              >
+                Content*
+              </Label>
               <span
-                className={`text-sm ${wordCount > 1000 ? "text-red-500 font-medium" : "text-gray-500"}`}
+                className={`text-xs px-2 py-1 rounded-full ${
+                  wordCount > 1000
+                    ? "bg-red-100 text-red-600"
+                    : "bg-fuchsia-100 text-fuchsia-600"
+                }`}
               >
                 {wordCount}/1000 words
               </span>
@@ -484,23 +553,25 @@ function EditArticlePage() {
               placeholder="Enter article content"
               value={formData.content}
               onChange={handleInputChange}
-              className="min-h-[300px]"
+              className="min-h-[300px] border-fuchsia-200 focus:border-fuchsia-500 focus:ring-fuchsia-500"
               required
             />
           </div>
 
-          <div className="flex justify-end gap-4">
+          {/* Buttons */}
+          <div className="flex justify-end gap-4 pt-4 border-t border-fuchsia-100">
             <Button
               type="button"
               variant="outline"
               onClick={() => router.push("/admin/articles")}
+              className="border-fuchsia-200 text-fuchsia-600 hover:bg-fuchsia-50"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={isSaving || wordCount > 1000 || summaryWordCount > 50}
-              className="flex items-center"
+              className="bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:from-fuchsia-700 hover:to-purple-700 text-white disabled:opacity-50"
             >
               {isSaving ? (
                 <>
