@@ -194,8 +194,8 @@ function AdminArticlesPage() {
     setError("");
 
     // Validate word count
-    if (wordCount > 1000) {
-      setError("Content exceeds the 1000 word limit");
+    if (wordCount > 2000) {
+      setError("Content exceeds the 2000 word limit");
       return;
     }
 
@@ -309,14 +309,44 @@ function AdminArticlesPage() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col justify-center items-center h-64 space-y-4">
-        <div className="relative">
-          <RefreshCw className="h-8 w-8 animate-spin text-fuchsia-500" />
-          <div className="absolute inset-0 h-8 w-8 rounded-full border-2 border-fuchsia-200 animate-pulse"></div>
+      <div className="p-4 md:p-8 space-y-6">
+        {/* Header Skeleton */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div className="h-8 bg-gray-200 rounded-lg w-48 mb-2 animate-pulse"></div>
+            <div className="h-4 bg-gray-200 rounded w-72 animate-pulse"></div>
+          </div>
+          <div className="h-6 bg-gray-200 rounded w-24 animate-pulse"></div>
         </div>
-        <p className="text-sm text-gray-500 animate-pulse">
-          Loading articles...
-        </p>
+
+        {/* Search Bar Skeleton */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="h-12 bg-gray-200 rounded-lg flex-grow animate-pulse"></div>
+            <div className="h-12 bg-gray-200 rounded-lg w-48 animate-pulse"></div>
+          </div>
+        </div>
+
+        {/* Cards Skeleton */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div
+              key={i}
+              className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200"
+            >
+              <div className="h-48 sm:h-56 bg-gray-200 animate-pulse"></div>
+              <div className="p-6">
+                <div className="h-6 bg-gray-200 rounded w-3/4 mb-3 animate-pulse"></div>
+                <div className="h-4 bg-gray-200 rounded w-full mb-2 animate-pulse"></div>
+                <div className="h-4 bg-gray-200 rounded w-2/3 mb-4 animate-pulse"></div>
+                <div className="flex justify-between items-center pt-4 border-t border-gray-100">
+                  <div className="h-3 bg-gray-200 rounded w-20 animate-pulse"></div>
+                  <div className="h-3 bg-gray-200 rounded w-16 animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -608,12 +638,12 @@ function AdminArticlesPage() {
                   </Label>
                   <span
                     className={`text-xs px-2 py-1 rounded-full ${
-                      wordCount > 1000
+                      wordCount > 2000
                         ? "bg-red-100 text-red-600"
                         : "bg-fuchsia-100 text-fuchsia-600"
                     }`}
                   >
-                    {wordCount}/1000 words
+                    {wordCount}/2000 words
                   </span>
                 </div>
                 <Textarea
@@ -639,7 +669,7 @@ function AdminArticlesPage() {
                 <Button
                   type="submit"
                   disabled={
-                    isSubmitting || wordCount > 1000 || summaryWordCount > 50
+                    isSubmitting || wordCount > 2000 || summaryWordCount > 50
                   }
                   className="bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:from-fuchsia-700 hover:to-purple-700 text-white disabled:opacity-50"
                 >

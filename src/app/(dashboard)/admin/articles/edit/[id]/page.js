@@ -194,8 +194,8 @@ function EditArticlePage() {
     setError("");
 
     // Validate word count
-    if (wordCount > 1000) {
-      setError("Content exceeds the 1000 word limit");
+    if (wordCount > 2000) {
+      setError("Content exceeds the 2000 word limit");
       return;
     }
 
@@ -539,12 +539,12 @@ function EditArticlePage() {
               </Label>
               <span
                 className={`text-xs px-2 py-1 rounded-full ${
-                  wordCount > 1000
+                  wordCount > 2000
                     ? "bg-red-100 text-red-600"
                     : "bg-fuchsia-100 text-fuchsia-600"
                 }`}
               >
-                {wordCount}/1000 words
+                {wordCount}/2000 words
               </span>
             </div>
             <Textarea
@@ -570,7 +570,7 @@ function EditArticlePage() {
             </Button>
             <Button
               type="submit"
-              disabled={isSaving || wordCount > 1000 || summaryWordCount > 50}
+              disabled={isSaving || wordCount > 2000 || summaryWordCount > 50}
               className="bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:from-fuchsia-700 hover:to-purple-700 text-white disabled:opacity-50"
             >
               {isSaving ? (
