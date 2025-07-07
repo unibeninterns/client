@@ -335,7 +335,7 @@ function AdminResearcherDashboard() {
                           <td className="px-6 py-4">
                             <Link
                               href={`/article/${article._id}`}
-                              className="inline-flex items-center gap-1 text-fuchsia-600 hover:text-fuchsia-700 font-medium transition-colors"
+                              className="inline-flex items-center gap-1 text-fuchsia-600 hover:text-fuchsia-900 hover:bg-fuchsia-100 font-medium transition-colors"
                             >
                               <LinkIcon className="h-4 w-4" />
                               View
