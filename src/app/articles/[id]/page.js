@@ -324,7 +324,7 @@ const ArticlePage = () => {
                         <h3 className="text-lg font-semibold text-fuchsia-900 group-hover:text-fuchsia-700 transition-colors line-clamp-2">
                           {rel.title}
                         </h3>
-                        <p className="text-sm text-gray-600 line-clamp-2 mt-2">
+                        <p className="text-sm text-gray-600 line-clamp-4 mt-2 mb-3">
                           {rel.summary}
                         </p>
                       </div>

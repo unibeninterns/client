@@ -46,7 +46,6 @@ function AdminDashboardPage() {
         const researchers = await researchersApi.getResearchers();
         const popularArticle = await articleViewsApi.getPopularArticles(5);
         const popularArticles = popularArticle.data;
-        console.log("Popular Articles:", popularArticles.data);
 
         const researchersCount = researchers?.data?.length || 0;
 
