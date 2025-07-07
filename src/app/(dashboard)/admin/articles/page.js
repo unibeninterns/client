@@ -770,7 +770,7 @@ function AdminArticlesPage() {
                       {article.contributors &&
                         article.contributors.length > 0 && (
                           <p className="text-xs text-gray-500">
-                            +{article.contributors.length} contributors
+                            {article.contributors.length} contributor(s)
                           </p>
                         )}
                     </div>
@@ -781,7 +781,7 @@ function AdminArticlesPage() {
                           variant="ghost"
                           size="sm"
                           onClick={() => router.push(`/article/${article._id}`)}
-                          className="text-fuchsia-600 hover:text-fuchsia-700 hover:bg-fuchsia-50"
+                          className="text-fuchsia-600 hover:text-fuchsia-700 hover:bg-fuchsia-200"
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
@@ -791,7 +791,7 @@ function AdminArticlesPage() {
                           onClick={() =>
                             router.push(`/admin/articles/edit/${article._id}`)
                           }
-                          className="text-gray-600 hover:text-gray-700 hover:bg-gray-50"
+                          className="text-blue-600 hover:text-blue-700 hover:bg-blue-200"
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -799,7 +799,7 @@ function AdminArticlesPage() {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleDeleteArticle(article._id)}
-                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                          className="text-red-600 hover:text-red-700 hover:bg-red-200"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -813,7 +813,7 @@ function AdminArticlesPage() {
         </div>
       ) : (
         /* Table View */
-        <Card className="border-gray-200">
+        <Card className="border-fuchsia-200">
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -859,7 +859,7 @@ function AdminArticlesPage() {
                     filteredArticles.map((article) => (
                       <tr
                         key={article._id}
-                        className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
+                        className="border-b border-fuchsia-200 hover:bg-fuchsia-50 transition-colors"
                       >
                         <td className="px-4 py-3 font-medium text-gray-900">
                           <div className="flex items-center gap-3">
@@ -869,10 +869,10 @@ function AdminArticlesPage() {
                                 alt={article.title}
                                 width={40}
                                 height={40}
-                                className="w-10 h-10 object-cover rounded-md border border-gray-200"
+                                className="w-10 h-10 object-cover rounded-md border border-fuchsia-200"
                               />
                             ) : (
-                              <div className="w-10 h-10 bg-gray-100 rounded-md border border-gray-200 flex items-center justify-center">
+                              <div className="w-10 h-10 bg-fuchsia-100 rounded-md border border-fuchsia-200 flex items-center justify-center">
                                 <FileText className="h-5 w-5 text-gray-400" />
                               </div>
                             )}
@@ -899,7 +899,7 @@ function AdminArticlesPage() {
                           {article.contributors &&
                             article.contributors.length > 0 && (
                               <span className="text-xs text-gray-500 block">
-                                +{article.contributors.length} contributors
+                                {article.contributors.length} contributor(s)
                               </span>
                             )}
                         </td>
@@ -925,7 +925,7 @@ function AdminArticlesPage() {
                               onClick={() =>
                                 router.push(`/article/${article._id}`)
                               }
-                              className="text-gray-600 hover:text-fuchsia-600"
+                              className="text-fuchsia-600 hover:text-fuchsia-700 hover:bg-fuchsia-200"
                             >
                               <Eye className="h-4 w-4" />
                             </Button>
@@ -937,7 +937,7 @@ function AdminArticlesPage() {
                                   `/admin/articles/edit/${article._id}`
                                 )
                               }
-                              className="text-gray-600 hover:text-blue-600"
+                              className="text-blue-600 hover:text-blue-700 hover:bg-blue-200"
                             >
                               <Edit className="h-4 w-4" />
                             </Button>
@@ -945,7 +945,7 @@ function AdminArticlesPage() {
                               variant="ghost"
                               size="sm"
                               onClick={() => handleDeleteArticle(article._id)}
-                              className="text-gray-600 hover:text-red-600"
+                              className="text-red-600 hover:text-red-700 hover:bg-red-200"
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>

@@ -429,22 +429,43 @@ function AdminInvitationsPage() {
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="researcher-faculty"
-                        className="text-sm font-medium text-gray-700"
-                      >
-                        Faculty/Department *
-                      </label>
-                      <Input
-                        id="researcher-faculty"
-                        name="faculty"
-                        placeholder="Computer Science"
-                        value={researcherForm.faculty}
-                        onChange={handleInputChange}
-                        className="h-12 border-gray-300 focus:border-fuchsia-500 focus:ring-fuchsia-200"
-                        required
-                      />
+                    {/* NEW: Email and Faculty Row */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="researcher-email"
+                          className="text-sm font-medium text-gray-700"
+                        >
+                          Email Address *
+                        </label>
+                        <Input
+                          id="researcher-email"
+                          name="email"
+                          type="email"
+                          placeholder="researcher@gmail.com"
+                          value={researcherForm.email}
+                          onChange={handleInputChange}
+                          className="h-12 border-gray-300 focus:border-fuchsia-500 focus:ring-fuchsia-200"
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="researcher-faculty"
+                          className="text-sm font-medium text-gray-700"
+                        >
+                          Faculty/Department *
+                        </label>
+                        <Input
+                          id="researcher-faculty"
+                          name="faculty"
+                          placeholder="Computer Science"
+                          value={researcherForm.faculty}
+                          onChange={handleInputChange}
+                          className="h-12 border-gray-300 focus:border-fuchsia-500 focus:ring-fuchsia-200"
+                          required
+                        />
+                      </div>
                     </div>
 
                     <div className="space-y-2">

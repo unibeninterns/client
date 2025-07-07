@@ -35,8 +35,8 @@ export default function ResearcherDashboardLayout({ children }) {
   const navigation = [
     { name: "Dashboard", href: "/researcher", icon: LayoutDashboard },
     { name: "My Articles", href: "/researcher/articles", icon: FileText },
-    { name: "My Profile", href: "/researcher/profile", icon: User },
     { name: "Analytics", href: "/researcher/analytics", icon: BarChart2 },
+    { name: "My Profile", href: "/researcher/profile", icon: User },
   ];
 
   const handleLogout = async () => {
