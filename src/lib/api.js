@@ -399,7 +399,7 @@ export const departmentApi = {
   },
 };
 
-// Researchers API (mostly the same but with added functionality)
+// Researchers API
 export const researchersApi = {
   getResearchers: async () => {
     return requestWithAuth({
