@@ -158,6 +158,20 @@ const Header = ({ isSearchPage = false }) => {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
+                  <Link href="/info" className="hover:text-gray-400">
+                    INFO DOCUMENTS
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Important information and documents</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </li>
+          <li>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
                   <Link href="/research-news" className="hover:text-gray-400">
                     RESEARCH NEWS
                   </Link>
@@ -186,7 +200,10 @@ const Header = ({ isSearchPage = false }) => {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="https://drid-uniben.org" className="hover:text-gray-400">
+                  <Link
+                    href="https://drid-uniben.org"
+                    className="hover:text-gray-400"
+                  >
                     Submit Proposal
                   </Link>
                 </TooltipTrigger>
