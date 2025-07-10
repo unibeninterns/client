@@ -60,6 +60,7 @@ const ArticlePage = () => {
     const fetchData = async () => {
       try {
         const articleData = await articlesApi.getPublicArticle(articleId);
+        console.log("Article data:", articleData);
         if (!articleData) {
           setError("Article not found");
           setLoading(false);
@@ -230,6 +231,13 @@ const ArticlePage = () => {
                 {article.category || "Uncategorized"}
               </Link>
             </div>
+            {article.department && article.department.title && (
+              <div className="flex items-center gap-1">
+                <span className="font-semibold text-fuchsia-800">
+                  {article.department.title}
+                </span>
+              </div>
+            )}
             <div className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
               <span>{new Date(article.publish_date).toLocaleDateString()}</span>
@@ -251,7 +259,7 @@ const ArticlePage = () => {
               alt="Cover Photo"
               width={1200}
               height={500}
-              className="w-full h-48 sm:h-64 lg:h-80 object-cover"
+              className="w-full h-64 sm:h-80 lg:h-96 object-cover"
               priority
             />
           </div>

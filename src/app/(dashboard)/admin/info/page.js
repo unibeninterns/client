@@ -14,7 +14,9 @@ import {
   X,
   AlertCircle,
   CheckCircle,
+  Download,
 } from "lucide-react";
+import Link from "next/link";
 
 export default function AdminInfoDocumentsPage() {
   const [documents, setDocuments] = useState([]);
@@ -365,15 +367,14 @@ export default function AdminInfoDocumentsPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-2">
-                        <button
-                          onClick={() =>
-                            window.open(`/admin/info/${document._id}`, "_blank")
-                          }
+                        <Link
+                          key={document._id}
+                          href={`/admin/info/${document._id}`}
                           className="p-2 text-gray-400 hover:text-fuchsia-600 transition-colors"
                           title="View document"
                         >
                           <ExternalLink className="w-4 h-4" />
-                        </button>
+                        </Link>
                         <button
                           onClick={() =>
                             window.open(document.info_doc, "_blank")
@@ -381,7 +382,7 @@ export default function AdminInfoDocumentsPage() {
                           className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
                           title="Download document"
                         >
-                          <FileText className="w-4 h-4" />
+                          <Download className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() =>

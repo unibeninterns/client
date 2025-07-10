@@ -140,7 +140,6 @@ export default function InfoDocumentsPage() {
             >
               <option value="publish_date">Date Published</option>
               <option value="title">Title</option>
-              <option value="views.count">Views</option>
             </select>
             <select
               value={sortOrder}
@@ -209,10 +208,6 @@ export default function InfoDocumentsPage() {
                 <div className="flex items-center justify-between mb-4">
                   <div className="text-2xl">
                     {getFileIcon(document.file_type)}
-                  </div>
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <Eye className="w-4 h-4 mr-1" />
-                    {document.views?.count || 0}
                   </div>
                 </div>
 
