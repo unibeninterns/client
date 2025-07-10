@@ -19,69 +19,41 @@ export const infoApi = {
       );
     }
   },
+};
 
-  // Get info document by ID (public)
-  getInfoDocumentById: async (id) => {
-    try {
-      const response = await apiClient.get(`/info/${id}`);
-      return response.data;
-    } catch (error) {
-      throw new ApiError(
-        error.response?.data?.message || "Failed to fetch info document",
-        error.response?.status || 500
-      );
-    }
-  },
+const performSearch = useCallback(async () => {
+  if (
+    query.length < 3 &&
+    !selectedCategory &&
+    !selectedFaculty &&
+    !selectedDepartment
+  ) {
+    return;
+  }
 
-  // Record a view for an info document (public)
-  recordView: async (id) => {
-    try {
-      const response = await apiClient.post(`/info-views/${id}/view`);
-      return response.data;
-    } catch (error) {
-      throw new ApiError(
-        error.response?.data?.message || "Failed to record view",
-        error.response?.status || 500
-      );
-    }
-  },
+  setLoading(true);
+  try {
+    const searchParams = {};
+    if (query && query.length >= 3) searchParams.q = query;
+    if (selectedCategory) searchParams.category = selectedCategory;
+    if (selectedFaculty) searchParams.faculty = selectedFaculty;
+    if (selectedDepartment) searchParams.department = selectedDepartment;
 
-  // Get popular info documents (public)
-  getPopularInfoDocuments: async (params = {}) => {
-    const searchParams = new URLSearchParams();
+    const articles = await articlesApi.getPublicArticles(searchParams);
+    setResults(Array.isArray(articles) ? articles : []);
+  } catch (error) {
+    console.error("Search error:", error);
+    setResults([]);
+  } finally {
+    setLoading(false);
+  }
+}, [query, selectedCategory, selectedFaculty, selectedDepartment]);
 
-    if (params.limit) searchParams.append("limit", params.limit);
-    if (params.period) searchParams.append("period", params.period);
-
-    try {
-      const response = await apiClient.get("/info-views/popular", { params });
-      return response.data;
-    } catch (error) {
-      throw new ApiError(
-        error.response?.data?.message ||
-          "Failed to fetch popular info documents",
-        error.response?.status || 500
-      );
-    }
-  },
-
-  // Admin: Create info document (authenticated)
-  createInfoDocument: async (formData) => {
-    return requestWithAuth({
-      method: "post",
-      url: "/info",
-      data: formData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-  },
-
-  // Admin: Delete info document (authenticated)
-  deleteInfoDocument: async (id) => {
-    return requestWithAuth({
-      method: "delete",
-      url: `/info/${id}`,
-    });
-  },
+const updateSearchParams = () => {
+  const params = new URLSearchParams();
+  if (query) params.set("q", query);
+  if (selectedCategory) params.set("category", selectedCategory);
+  if (selectedFaculty) params.set("faculty", selectedFaculty);
+  if (selectedDepartment) params.set("department", selectedDepartment);
+  router.push(`/search?${params.toString()}`, { scroll: false });
 };
