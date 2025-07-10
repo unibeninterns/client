@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { infoApi } from "@/lib/api";
 import Header from "@/components/header";
@@ -24,13 +24,7 @@ export default function InfoDocumentDetailPage() {
   const [error, setError] = useState(null);
   const [viewRecorded, setViewRecorded] = useState(false);
 
-  useEffect(() => {
-    if (id) {
-      fetchDocument();
-    }
-  }, [id]);
-
-  const fetchDocument = async () => {
+  const fetchDocument = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -53,7 +47,13 @@ export default function InfoDocumentDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, viewRecorded]);
+
+  useEffect(() => {
+    if (id) {
+      fetchDocument();
+    }
+  }, [id, fetchDocument]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -131,8 +131,8 @@ export default function InfoDocumentDetailPage() {
                 Document not found
               </h3>
               <p className="text-gray-600 mb-6">
-                The document you're looking for doesn't exist or has been
-                removed.
+                The document you&apos;re looking for doesn&apos;t exist or has
+                been removed.
               </p>
               <button
                 onClick={() => router.push("/info")}
