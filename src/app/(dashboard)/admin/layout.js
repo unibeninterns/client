@@ -42,6 +42,7 @@ export default function AdminDashboardLayout({ children }) {
   const navigation = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Articles", href: "/admin/articles", icon: FileText },
+    { name: "Info Documents", href: "/admin/info", icon: FileText },
     { name: "Researchers", href: "/admin/researchers", icon: Users },
     { name: "Invitations", href: "/admin/invitations", icon: Mail },
   ];
