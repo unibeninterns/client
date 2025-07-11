@@ -44,7 +44,7 @@ export default function AdminInfoDocumentPage() {
       }
 
       if (statsResponse.status === "fulfilled") {
-        setViewStats(statsResponse.value);
+        setViewStats(statsResponse.value.data);
       } else {
         console.warn("Could not fetch view stats:", statsResponse.reason);
       }
@@ -158,67 +158,80 @@ export default function AdminInfoDocumentPage() {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <button
             onClick={() => router.back()}
-            className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
+            className="flex items-center bg-fuchsia-50 text-gray-800 hover:text-fuchsia-800 rounded-md hover:bg-fuchsia-100 transition-colors group w-fit"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Back to Documents
           </button>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
             <button
               onClick={() => window.open(document.info_doc, "_blank")}
-              className="inline-flex items-center px-4 py-2 bg-fuchsia-600 text-white rounded-md hover:bg-fuchsia-700 transition-colors"
+              className="inline-flex items-center justify-center px-4 py-2 bg-fuchsia-600 text-white rounded-lg hover:bg-fuchsia-700 transition-all duration-200 shadow-sm hover:shadow-md group"
             >
-              <Download className="w-4 h-4 mr-2" />
+              <Download className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
               Download
             </button>
             <button
               onClick={() => window.open(document.info_doc, "_blank")}
-              className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+              className="inline-flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all duration-200 shadow-sm hover:shadow-md group"
             >
-              <ExternalLink className="w-4 h-4 mr-2" />
+              <ExternalLink className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
               View Document
             </button>
           </div>
         </div>
 
         {/* Document Details */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <div className="flex items-start space-x-4">
-            <div className="flex-shrink-0 w-16 h-16 bg-fuchsia-100 rounded-xl flex items-center justify-center">
-              <span className="text-2xl">
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100 hover:shadow-md transition-shadow duration-200">
+          <div className="flex flex-col sm:flex-row sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
+            <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-fuchsia-100 to-fuchsia-200 rounded-xl flex items-center justify-center shadow-inner">
+              <span className="text-3xl">
                 {getFileIcon(document.file_type)}
               </span>
             </div>
 
             <div className="flex-1 min-w-0">
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                {document.title}
-              </h1>
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-0 leading-tight">
+                  {document.title}
+                </h1>
+                <div className="flex items-center space-x-2 sm:ml-4">
+                  <span
+                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                      document.status === "published"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }`}
+                  >
+                    {document.status === "published" ? "Published" : "Archived"}
+                  </span>
+                </div>
+              </div>
 
               {document.description && (
-                <p className="text-gray-600 mb-4 leading-relaxed">
+                <p className="text-gray-600 mb-4 leading-relaxed text-sm sm:text-base">
                   {document.description}
                 </p>
               )}
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-                <div className="flex items-center">
-                  <Calendar className="w-4 h-4 mr-1" />
-                  <span>Published {formatDate(document.publish_date)}</span>
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-gray-500">
+                <div className="flex items-center bg-gray-50 px-3 py-1 rounded-lg">
+                  <User className="w-4 h-4 mr-2 text-fuchsia-500" />
+                  <span className="font-medium">
+                    {document.owner?.username || "Admin"}
+                  </span>
                 </div>
 
-                <div className="flex items-center">
-                  <User className="w-4 h-4 mr-1" />
-                  <span>{document.owner?.username || "Admin"}</span>
-                </div>
-
-                <div className="flex items-center">
-                  <Eye className="w-4 h-4 mr-1" />
-                  <span>{document.views?.count || 0} views</span>
+                <div className="flex items-center bg-gray-50 px-3 py-1 rounded-lg">
+                  <Eye className="w-4 h-4 mr-2 text-fuchsia-500" />
+                  <span className="font-medium">
+                    {document.views?.count || 0}
+                  </span>
+                  <span className="ml-1">views</span>
                 </div>
               </div>
             </div>
@@ -226,39 +239,51 @@ export default function AdminInfoDocumentPage() {
         </div>
 
         {/* File Information */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
-            File Information
-          </h2>
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100 hover:shadow-md transition-shadow duration-200">
+          <div className="flex items-center mb-4">
+            <FileText className="w-5 h-5 mr-2 text-fuchsia-500" />
+            <h2 className="text-lg font-semibold text-gray-900">
+              File Information
+            </h2>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-2">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 border border-gray-200">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <span className="w-2 h-2 bg-fuchsia-500 rounded-full mr-2"></span>
                 File Details
               </h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Original Name:</span>
-                  <span className="text-gray-900 font-medium">
+              <div className="space-y-3">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                  <span className="text-sm text-gray-600 font-medium">
+                    Original Name:
+                  </span>
+                  <span className="text-sm text-gray-900 font-medium mt-1 sm:mt-0 truncate sm:max-w-xs">
                     {document.original_filename}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Type:</span>
-                  <span className="text-gray-900 font-medium">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                  <span className="text-sm text-gray-600 font-medium">
+                    File Type:
+                  </span>
+                  <span className="text-sm text-gray-900 font-medium mt-1 sm:mt-0">
                     {getFileTypeDisplay(document.file_type)}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Size:</span>
-                  <span className="text-gray-900 font-medium">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                  <span className="text-sm text-gray-600 font-medium">
+                    File Size:
+                  </span>
+                  <span className="text-sm text-gray-900 font-medium mt-1 sm:mt-0">
                     {formatFileSize(document.file_size)}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Status:</span>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                  <span className="text-sm text-gray-600 font-medium">
+                    Status:
+                  </span>
                   <span
-                    className={`font-medium ${
+                    className={`text-sm font-medium mt-1 sm:mt-0 ${
                       document.status === "published"
                         ? "text-green-600"
                         : "text-yellow-600"
@@ -270,20 +295,25 @@ export default function AdminInfoDocumentPage() {
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-2">
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 border border-gray-200">
+              <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                <span className="w-2 h-2 bg-fuchsia-500 rounded-full mr-2"></span>
                 Timestamps
               </h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Created:</span>
-                  <span className="text-gray-900 font-medium">
+              <div className="space-y-3">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                  <span className="text-sm text-gray-600 font-medium">
+                    Created:
+                  </span>
+                  <span className="text-sm text-gray-900 font-medium mt-1 sm:mt-0">
                     {formatDate(document.createdAt)}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Updated:</span>
-                  <span className="text-gray-900 font-medium">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                  <span className="text-sm text-gray-600 font-medium">
+                    Updated:
+                  </span>
+                  <span className="text-sm text-gray-900 font-medium mt-1 sm:mt-0">
                     {formatDate(document.updatedAt)}
                   </span>
                 </div>
@@ -291,108 +321,6 @@ export default function AdminInfoDocumentPage() {
             </div>
           </div>
         </div>
-
-        {/* View Statistics */}
-        {viewStats && (
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">
-                View Statistics
-              </h2>
-              <BarChart3 className="w-5 h-5 text-gray-400" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="bg-fuchsia-50 rounded-lg p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-fuchsia-600">
-                      Total Views
-                    </p>
-                    <p className="text-2xl font-bold text-fuchsia-900">
-                      {viewStats.totalViews}
-                    </p>
-                  </div>
-                  <Eye className="w-8 h-8 text-fuchsia-600" />
-                </div>
-              </div>
-
-              <div className="bg-blue-50 rounded-lg p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-blue-600">
-                      Recent Views
-                    </p>
-                    <p className="text-2xl font-bold text-blue-900">
-                      {viewStats.dailyStats?.reduce(
-                        (sum, day) => sum + day.count,
-                        0
-                      ) || 0}
-                    </p>
-                    <p className="text-xs text-blue-600">Last 30 days</p>
-                  </div>
-                  <Clock className="w-8 h-8 text-blue-600" />
-                </div>
-              </div>
-
-              <div className="bg-green-50 rounded-lg p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-green-600">
-                      Peak Day
-                    </p>
-                    <p className="text-2xl font-bold text-green-900">
-                      {Math.max(
-                        ...(viewStats.dailyStats?.map((day) => day.count) || [
-                          0,
-                        ])
-                      )}
-                    </p>
-                    <p className="text-xs text-green-600">views</p>
-                  </div>
-                  <BarChart3 className="w-8 h-8 text-green-600" />
-                </div>
-              </div>
-            </div>
-
-            {/* Daily Views Chart */}
-            {viewStats.dailyStats && viewStats.dailyStats.length > 0 && (
-              <div>
-                <h3 className="text-sm font-medium text-gray-700 mb-3">
-                  Daily Views (Last 30 Days)
-                </h3>
-                <div className="h-32 flex items-end space-x-1">
-                  {viewStats.dailyStats.map((day, index) => {
-                    const maxViews = Math.max(
-                      ...viewStats.dailyStats.map((d) => d.count)
-                    );
-                    const height =
-                      maxViews > 0 ? (day.count / maxViews) * 100 : 0;
-
-                    return (
-                      <div
-                        key={index}
-                        className="flex-1 flex flex-col items-center"
-                      >
-                        <div
-                          className="w-full bg-fuchsia-200 rounded-t hover:bg-fuchsia-300 transition-colors"
-                          style={{ height: `${height}%` }}
-                          title={`${day.date}: ${day.count} views`}
-                        ></div>
-                        <div className="text-xs text-gray-500 mt-1 transform -rotate-45 origin-top-left">
-                          {new Date(day.date).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                          })}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );

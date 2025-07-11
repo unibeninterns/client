@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { infoApi } from "@/lib/api";
 import {
   FileText,
-  Plus,
+  PlusCircle,
   Search,
   Calendar,
   Eye,
@@ -30,6 +30,8 @@ export default function AdminInfoDocumentsPage() {
   const [createLoading, setCreateLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(null);
   const [notification, setNotification] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [documentToDelete, setDocumentToDelete] = useState(null);
 
   const showNotification = useCallback(
     (message, type) => {
@@ -127,14 +129,16 @@ export default function AdminInfoDocumentsPage() {
     }
   };
 
-  const handleDeleteDocument = async (id, title) => {
-    if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
+  const handleDeleteDocument = async () => {
+    if (!documentToDelete) return;
 
     try {
-      setDeleteLoading(id);
-      await infoApi.deleteInfoDocument(id);
+      setDeleteLoading(documentToDelete._id);
+      await infoApi.deleteInfoDocument(documentToDelete._id);
       showNotification("Document deleted successfully!", "success");
       fetchDocuments(currentPage, searchQuery);
+      setShowDeleteModal(false);
+      setDocumentToDelete(null);
     } catch (error) {
       console.error("Error deleting document:", error);
       showNotification(error.message || "Failed to delete document", "error");
@@ -192,116 +196,146 @@ export default function AdminInfoDocumentsPage() {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Info Documents</h1>
-          <p className="text-gray-600 mt-1">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-fuchsia-50 to-purple-50 p-6 rounded-xl border border-fuchsia-100">
+        <div className="space-y-2">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight bg-gradient-to-r from-fuchsia-600 to-purple-600 bg-clip-text text-transparent">
+            Info Documents
+          </h1>
+          <p className="text-gray-600 text-sm md:text-base">
             Manage information documents and resources
           </p>
         </div>
-
         <button
           onClick={() => setShowCreateModal(true)}
-          className="inline-flex items-center px-4 py-2 bg-fuchsia-600 text-white rounded-md hover:bg-fuchsia-700 transition-colors"
+          className="bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:from-fuchsia-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 inline-flex items-center px-4 py-2 rounded-md"
         >
-          <Plus className="w-4 h-4 mr-2" />
+          <PlusCircle className="w-4 h-4 mr-2" />
           Upload Document
         </button>
       </div>
 
       {/* Search and Filters */}
-      <div className="bg-white rounded-lg shadow-sm p-6">
-        <div className="flex flex-col lg:flex-row gap-4">
-          <form onSubmit={handleSearch} className="flex-1">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+      <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-gray-100">
+        <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between">
+          <form onSubmit={handleSearch} className="flex-1 sm:max-w-md">
+            <div className="relative group">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors group-focus-within:text-fuchsia-500" />
               <input
                 type="text"
                 placeholder="Search documents..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 transition-all duration-200 hover:border-gray-400"
               />
             </div>
           </form>
 
-          <div className="flex gap-2">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
-            >
-              <option value="publish_date">Date</option>
-              <option value="title">Title</option>
-              <option value="views.count">Views</option>
-            </select>
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+            <div className="flex gap-2">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 transition-all duration-200 hover:border-gray-400 bg-white"
+              >
+                <option value="publish_date">Sort by Date</option>
+                <option value="title">Sort by Title</option>
+                <option value="views.count">Sort by Views</option>
+              </select>
 
-            <select
-              value={sortOrder}
-              onChange={(e) => setSortOrder(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-fuchsia-500"
-            >
-              <option value="desc">Desc</option>
-              <option value="asc">Asc</option>
-            </select>
+              <select
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+                className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 transition-all duration-200 hover:border-gray-400 bg-white"
+              >
+                <option value="desc">Newest First</option>
+                <option value="asc">Oldest First</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Enhanced Stats Bar */}
+        <div className="mt-4 pt-4 border-t border-gray-100">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+            <div className="flex items-center">
+              <FileText className="w-4 h-4 mr-1 text-fuchsia-500" />
+              <span className="font-medium">{pagination.totalCount || 0}</span>
+              <span className="ml-1">total documents</span>
+            </div>
+            {searchQuery && (
+              <div className="flex items-center">
+                <Search className="w-4 h-4 mr-1 text-gray-400" />
+                <span>Results for &quot;</span>
+                <span className="font-medium text-fuchsia-600">
+                  {searchQuery}
+                </span>
+                <span>&quot;</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       {/* Documents Table */}
-      <div className="bg-white rounded-lg shadow-sm">
-        <div className="px-6 py-4 border-b border-gray-200">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-200 bg-gray-50">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-medium text-gray-900">
-              Documents ({pagination.totalCount || 0})
+            <h2 className="text-lg font-semibold text-gray-900 flex items-center">
+              <FileText className="w-5 h-5 mr-2 text-fuchsia-500" />
+              Research Documents
             </h2>
+            <div className="text-sm text-gray-500">
+              {pagination.totalCount || 0} documents
+            </div>
           </div>
         </div>
 
+        {/* Mobile-First Responsive Table */}
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50">
+            <thead className="bg-gray-50 hidden sm:table-header-group">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Document
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Date
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Published
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Views
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Engagement
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Size
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {loading ? (
+                // Enhanced loading state
                 [...Array(5)].map((_, index) => (
                   <tr key={index} className="animate-pulse">
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4">
                       <div className="flex items-center">
-                        <div className="w-10 h-10 bg-gray-200 rounded mr-3"></div>
-                        <div className="space-y-2">
-                          <div className="h-4 bg-gray-200 rounded w-32"></div>
-                          <div className="h-3 bg-gray-200 rounded w-24"></div>
+                        <div className="w-10 h-10 bg-gray-200 rounded-lg mr-3"></div>
+                        <div className="space-y-2 flex-1">
+                          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                          <div className="h-3 bg-gray-200 rounded w-1/2"></div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="h-4 bg-gray-200 rounded w-16"></div>
+                    <td className="px-4 sm:px-6 py-4 hidden sm:table-cell">
+                      <div className="h-4 bg-gray-200 rounded w-20"></div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4 hidden sm:table-cell">
                       <div className="h-4 bg-gray-200 rounded w-12"></div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4 hidden sm:table-cell">
                       <div className="h-4 bg-gray-200 rounded w-16"></div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4">
                       <div className="flex space-x-2">
                         <div className="h-8 w-8 bg-gray-200 rounded"></div>
                         <div className="h-8 w-8 bg-gray-200 rounded"></div>
@@ -313,90 +347,130 @@ export default function AdminInfoDocumentsPage() {
                 <tr>
                   <td
                     colSpan="5"
-                    className="px-6 py-12 text-center text-gray-500"
+                    className="px-4 sm:px-6 py-12 text-center text-gray-500"
                   >
-                    <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                    <p className="text-lg font-medium mb-2">
-                      No documents found
-                    </p>
-                    <p>Upload your first info document to get started.</p>
+                    <div className="flex flex-col items-center">
+                      <FileText className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+                      <p className="text-lg font-medium mb-2">
+                        No documents found
+                      </p>
+                      <p className="text-sm text-gray-400 mb-4">
+                        {searchQuery
+                          ? `No documents match "${searchQuery}". Try adjusting your search.`
+                          : "Upload your first research document to get started."}
+                      </p>
+                      {searchQuery && (
+                        <button
+                          onClick={() => {
+                            setSearchQuery("");
+                            fetchDocuments(1, "");
+                          }}
+                          className="text-fuchsia-600 hover:text-fuchsia-700 text-sm font-medium"
+                        >
+                          Clear search
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ) : (
                 documents.map((document) => (
                   <tr
                     key={document._id}
-                    className="hover:bg-gray-50 transition-colors"
+                    className="hover:bg-gray-50 transition-colors group"
                   >
-                    <td className="px-6 py-4">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+                    {/* Enhanced Mobile-First Document Cell */}
+                    <td className="px-4 sm:px-6 py-4">
+                      <div className="flex items-start space-x-3">
+                        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-fuchsia-100 to-fuchsia-200 rounded-lg flex items-center justify-center group-hover:from-fuchsia-200 group-hover:to-fuchsia-300 transition-all duration-200">
                           <span className="text-lg">
                             {getFileIcon(document.file_type)}
                           </span>
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div className="text-sm font-medium text-gray-900 truncate">
-                            {document.title}
-                          </div>
-                          <div className="text-sm text-gray-500 truncate">
-                            {document.original_filename}
-                          </div>
-                          {document.description && (
-                            <div className="text-xs text-gray-400 mt-1 truncate">
-                              {document.description}
+                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-sm font-semibold text-gray-900 truncate group-hover:text-fuchsia-700 transition-colors">
+                                {document.title}
+                              </h3>
+                              <p className="text-xs text-gray-500 truncate mt-1">
+                                {document.original_filename}
+                              </p>
+                              {document.description && (
+                                <p className="text-xs text-gray-400 mt-1 line-clamp-2 sm:line-clamp-1">
+                                  {document.description}
+                                </p>
+                              )}
+                              {/* Mobile-only stats */}
+                              <div className="flex items-center space-x-4 mt-2 sm:hidden">
+                                <div className="flex items-center text-xs text-gray-500">
+                                  <Calendar className="w-3 h-3 mr-1" />
+                                  {formatDate(document.publish_date)}
+                                </div>
+                                <div className="flex items-center text-xs text-gray-500">
+                                  <Eye className="w-3 h-3 mr-1" />
+                                  {document.views?.count || 0}
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  {formatFileSize(document.file_size)}
+                                </div>
+                              </div>
                             </div>
-                          )}
+                          </div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
+
+                    {/* Desktop-only columns */}
+                    <td className="px-4 sm:px-6 py-4 hidden sm:table-cell">
                       <div className="flex items-center text-sm text-gray-900">
                         <Calendar className="w-4 h-4 mr-1 text-gray-400" />
                         {formatDate(document.publish_date)}
                       </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 sm:px-6 py-4 hidden sm:table-cell">
                       <div className="flex items-center text-sm text-gray-900">
                         <Eye className="w-4 h-4 mr-1 text-gray-400" />
-                        {document.views?.count || 0}
+                        <span className="font-medium">
+                          {document.views?.count || 0}
+                        </span>
+                        <span className="text-gray-500 ml-1">views</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-900">
-                      {formatFileSize(document.file_size)}
+                    <td className="px-4 sm:px-6 py-4 text-sm text-gray-900 hidden sm:table-cell">
+                      <span className="font-medium">
+                        {formatFileSize(document.file_size)}
+                      </span>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center space-x-2">
+
+                    {/* Enhanced Actions Column */}
+                    <td className="px-4 sm:px-6 py-4">
+                      <div className="flex items-center space-x-1">
                         <Link
-                          key={document._id}
                           href={`/admin/info/${document._id}`}
-                          className="p-2 text-gray-400 hover:text-fuchsia-600 transition-colors"
-                          title="View document"
+                          className="p-2 text-gray-400 hover:text-fuchsia-600 hover:bg-fuchsia-50 rounded-lg transition-all duration-200 group/action"
+                          title="View details"
                         >
-                          <ExternalLink className="w-4 h-4" />
+                          <ExternalLink className="w-4 h-4 group-hover/action:scale-110 transition-transform" />
                         </Link>
                         <button
                           onClick={() =>
                             window.open(document.info_doc, "_blank")
                           }
-                          className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
+                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 group/action"
                           title="Download document"
                         >
-                          <Download className="w-4 h-4" />
+                          <Download className="w-4 h-4 group-hover/action:scale-110 transition-transform" />
                         </button>
                         <button
-                          onClick={() =>
-                            handleDeleteDocument(document._id, document.title)
-                          }
-                          disabled={deleteLoading === document._id}
-                          className="p-2 text-gray-400 hover:text-red-600 transition-colors disabled:opacity-50"
+                          onClick={() => {
+                            setDocumentToDelete(document);
+                            setShowDeleteModal(true);
+                          }}
+                          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 group/action"
                           title="Delete document"
                         >
-                          {deleteLoading === document._id ? (
-                            <div className="w-4 h-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></div>
-                          ) : (
-                            <Trash2 className="w-4 h-4" />
-                          )}
+                          <Trash2 className="w-4 h-4 group-hover/action:scale-110 transition-transform" />
                         </button>
                       </div>
                     </td>
@@ -407,62 +481,80 @@ export default function AdminInfoDocumentsPage() {
           </table>
         </div>
 
-        {/* Pagination */}
+        {/* Enhanced Mobile-Friendly Pagination */}
         {pagination.totalPages > 1 && (
-          <div className="px-6 py-4 border-t border-gray-200">
-            <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-700">
-                Showing {(currentPage - 1) * 10 + 1} to{" "}
-                {Math.min(currentPage * 10, pagination.totalCount)} of{" "}
-                {pagination.totalCount} documents
+          <div className="px-4 sm:px-6 py-4 border-t border-gray-200 bg-gray-50">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+              <div className="text-sm text-gray-700 text-center sm:text-left">
+                Showing{" "}
+                <span className="font-medium">
+                  {(currentPage - 1) * 10 + 1}
+                </span>{" "}
+                to{" "}
+                <span className="font-medium">
+                  {Math.min(currentPage * 10, pagination.totalCount)}
+                </span>{" "}
+                of <span className="font-medium">{pagination.totalCount}</span>{" "}
+                documents
               </div>
-              <div className="flex items-center space-x-2">
+
+              <div className="flex items-center justify-center space-x-1">
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={!pagination.hasPrev}
-                  className="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-sm"
                 >
                   Previous
                 </button>
 
-                {[...Array(pagination.totalPages)].map((_, index) => {
-                  const page = index + 1;
-                  const isCurrentPage = page === currentPage;
-                  const isNearCurrentPage = Math.abs(page - currentPage) <= 2;
-                  const isFirstOrLast =
-                    page === 1 || page === pagination.totalPages;
+                {/* Smart pagination for mobile */}
+                <div className="hidden sm:flex items-center space-x-1">
+                  {[...Array(pagination.totalPages)].map((_, index) => {
+                    const page = index + 1;
+                    const isCurrentPage = page === currentPage;
+                    const isNearCurrentPage = Math.abs(page - currentPage) <= 2;
+                    const isFirstOrLast =
+                      page === 1 || page === pagination.totalPages;
 
-                  if (isNearCurrentPage || isFirstOrLast) {
-                    return (
-                      <button
-                        key={page}
-                        onClick={() => handlePageChange(page)}
-                        className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
-                          isCurrentPage
-                            ? "bg-fuchsia-600 text-white"
-                            : "border border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
-                        }`}
-                      >
-                        {page}
-                      </button>
-                    );
-                  } else if (
-                    page === currentPage - 3 ||
-                    page === currentPage + 3
-                  ) {
-                    return (
-                      <span key={page} className="px-2 py-1 text-gray-500">
-                        ...
-                      </span>
-                    );
-                  }
-                  return null;
-                })}
+                    if (isNearCurrentPage || isFirstOrLast) {
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => handlePageChange(page)}
+                          className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                            isCurrentPage
+                              ? "bg-fuchsia-600 text-white shadow-sm"
+                              : "text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:shadow-sm"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    } else if (
+                      page === currentPage - 3 ||
+                      page === currentPage + 3
+                    ) {
+                      return (
+                        <span key={page} className="px-2 py-2 text-gray-500">
+                          ...
+                        </span>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+
+                {/* Mobile pagination info */}
+                <div className="sm:hidden flex items-center px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg">
+                  <span className="font-medium">{currentPage}</span>
+                  <span className="mx-1">of</span>
+                  <span className="font-medium">{pagination.totalPages}</span>
+                </div>
 
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={!pagination.hasNext}
-                  className="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:shadow-sm"
                 >
                   Next
                 </button>
@@ -631,6 +723,86 @@ export default function AdminInfoDocumentsPage() {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showDeleteModal && documentToDelete && (
+        <div
+          className="fixed inset-0 z-50 overflow-y-auto"
+          onClick={() => setShowDeleteModal(false)}
+        >
+          <div className="flex min-h-screen items-center justify-center p-4">
+            <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity backdrop-blur-sm"></div>
+            <div
+              className="relative bg-white rounded-xl shadow-2xl max-w-md w-full transform transition-all"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6">
+                <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-red-100 rounded-full">
+                  <AlertCircle className="w-6 h-6 text-red-600" />
+                </div>
+
+                <h3 className="text-lg font-semibold text-gray-900 text-center mb-2">
+                  Delete Document
+                </h3>
+
+                <p className="text-sm text-gray-600 text-center mb-4">
+                  Are you sure you want to delete{" "}
+                  <span className="font-medium text-gray-900">
+                    &quot;{documentToDelete.title}&quot;
+                  </span>
+                  ? This action cannot be undone.
+                </p>
+
+                <div className="bg-gray-50 rounded-lg p-3 mb-6">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center">
+                      <span className="text-sm">
+                        {getFileIcon(documentToDelete.file_type)}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-gray-900 truncate">
+                        {documentToDelete.title}
+                      </p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {documentToDelete.original_filename}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex space-x-3">
+                  <button
+                    onClick={() => {
+                      setShowDeleteModal(false);
+                      setDocumentToDelete(null);
+                    }}
+                    className="flex-1 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleDeleteDocument}
+                    disabled={deleteLoading === documentToDelete._id}
+                    className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium flex items-center justify-center"
+                  >
+                    {deleteLoading === documentToDelete._id ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                        Deleting...
+                      </>
+                    ) : (
+                      <>
+                        <Trash2 className="w-4 h-4 mr-2" />
+                        Delete
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
