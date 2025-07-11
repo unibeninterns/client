@@ -73,11 +73,11 @@ export default function InfoDocumentsPage() {
     setSearchTimeout(timeout);
 
     return () => clearTimeout(timeout);
-  }, [searchQuery, performSearch]);
+  }, [searchQuery, performSearch, searchTimeout]);
 
   useEffect(() => {
     fetchDocuments(1, searchQuery);
-  }, [sortBy, sortOrder, fetchDocuments]);
+  }, [sortBy, sortOrder, fetchDocuments, searchQuery]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -138,49 +138,169 @@ export default function InfoDocumentsPage() {
       <Header />
 
       {/* Enhanced Hero Section */}
-      <section className="bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                Research Documents
+      <section className="relative bg-gradient-to-br from-white via-fuchsia-50/30 to-white border-b border-gray-200 overflow-hidden">
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-fuchsia-100/40 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-fuchsia-100/40 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-20 left-1/4 w-2 h-2 bg-fuchsia-300 rounded-full opacity-60"></div>
+          <div className="absolute top-40 right-1/3 w-1 h-1 bg-fuchsia-400 rounded-full opacity-40"></div>
+          <div className="absolute bottom-32 left-1/2 w-1.5 h-1.5 bg-fuchsia-200 rounded-full opacity-50"></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 relative">
+          <div className="max-w-5xl mx-auto">
+            {/* Enhanced Header */}
+            <div className="text-center mb-12 lg:mb-16">
+              <div className="inline-flex items-center px-4 py-2 bg-fuchsia-100/60 backdrop-blur-sm rounded-full text-fuchsia-700 text-sm font-medium mb-6 hover:bg-fuchsia-100/80 transition-all duration-300 cursor-default">
+                <div className="w-2 h-2 bg-fuchsia-500 rounded-full mr-2 animate-pulse"></div>
+                UNIBEN Research Hub
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+                <span className="block">Discover</span>
+                <span className="block bg-gradient-to-r from-fuchsia-600 via-fuchsia-700 to-fuchsia-800 bg-clip-text text-transparent">
+                  Research Excellence
+                </span>
               </h1>
-              <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
-                Discover academic papers, research findings, and institutional
-                reports from UNIBEN
+
+              <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Explore cutting-edge academic papers, groundbreaking research
+                findings, and institutional reports from the University of Benin
               </p>
+
+              {/* Research Stats */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mt-8 text-sm">
+                <div className="flex items-center gap-2 text-gray-600">
+                  <div className="w-8 h-8 bg-fuchsia-100 rounded-full flex items-center justify-center">
+                    <FileText className="w-4 h-4 text-fuchsia-600" />
+                  </div>
+                  <span>10,000+ Documents</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <div className="w-8 h-8 bg-fuchsia-100 rounded-full flex items-center justify-center">
+                    <User className="w-4 h-4 text-fuchsia-600" />
+                  </div>
+                  <span>500+ Researchers</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <div className="w-8 h-8 bg-fuchsia-100 rounded-full flex items-center justify-center">
+                    <Eye className="w-4 h-4 text-fuchsia-600" />
+                  </div>
+                  <span>1M+ Views</span>
+                </div>
+              </div>
             </div>
 
-            {/* Enhanced Search Bar */}
-            <div className="max-w-2xl mx-auto">
+            {/* Enhanced Search Section */}
+            <div className="max-w-3xl mx-auto">
               <form onSubmit={handleSearch} className="relative group">
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-fuchsia-500 transition-colors" />
-                  <input
-                    type="text"
-                    placeholder="Search documents... (minimum 3 characters)"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    className="w-full pl-12 pr-4 py-4 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md"
-                  />
+                  {/* Search Input Container */}
+                  <div className="relative bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 group-focus-within:shadow-xl group-focus-within:border-fuchsia-300">
+                    {/* Search Icon */}
+                    <div className="absolute left-6 top-1/2 transform -translate-y-1/2 transition-all duration-300 group-focus-within:scale-110">
+                      <Search className="w-5 h-5 text-gray-400 group-focus-within:text-fuchsia-500" />
+                    </div>
+
+                    {/* Search Input */}
+                    <input
+                      type="text"
+                      placeholder="Search for research papers, authors, topics..."
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                      className="w-full pl-14 pr-32 py-5 lg:py-6 rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none text-lg bg-transparent"
+                    />
+
+                    {/* Character Counter for Mobile */}
+                    {searchQuery.length > 0 && searchQuery.length < 3 && (
+                      <div className="absolute right-24 top-1/2 transform -translate-y-1/2 sm:hidden">
+                        <div className="flex items-center gap-1 text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">
+                          <Clock className="w-3 h-3" />
+                          <span>{3 - searchQuery.length} more</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Search Button */}
+                    <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
+                      {searchQuery.length >= 3 ? (
+                        <button
+                          type="submit"
+                          className="bg-gradient-to-r from-fuchsia-600 to-fuchsia-700 hover:from-fuchsia-700 hover:to-fuchsia-800 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+                        >
+                          <span className="hidden sm:inline">Search</span>
+                          <Search className="w-4 h-4 sm:hidden" />
+                        </button>
+                      ) : (
+                        <div className="bg-gray-100 text-gray-400 px-6 py-3 lg:px-8 lg:py-4 rounded-xl font-semibold cursor-not-allowed">
+                          <span className="hidden sm:inline">Search</span>
+                          <Search className="w-4 h-4 sm:hidden" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Enhanced Search Progress Indicator */}
                   {searchQuery.length > 0 && searchQuery.length < 3 && (
-                    <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                      <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded">
-                        {3 - searchQuery.length} more
-                      </span>
+                    <div className="absolute -bottom-12 left-6 right-6 hidden sm:block">
+                      <div className="bg-white rounded-lg border border-gray-200 p-3 shadow-sm">
+                        <div className="flex items-center justify-between text-xs text-gray-500">
+                          <span>Minimum 3 characters required</span>
+                          <div className="flex items-center gap-1">
+                            <div className="w-16 bg-gray-200 rounded-full h-1">
+                              <div
+                                className="bg-fuchsia-500 h-1 rounded-full transition-all duration-300"
+                                style={{
+                                  width: `${(searchQuery.length / 3) * 100}%`,
+                                }}
+                              ></div>
+                            </div>
+                            <span className="ml-1 font-medium">
+                              {searchQuery.length}/3
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
-                {searchQuery.length >= 3 && (
-                  <button
-                    type="submit"
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-fuchsia-600 hover:bg-fuchsia-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
-                  >
-                    Search
-                  </button>
-                )}
               </form>
+
+              {/* Search Suggestions/Quick Actions */}
+              <div className="mt-8 lg:mt-12">
+                <div className="text-center mb-4">
+                  <span className="text-sm text-gray-500 font-medium">
+                    Popular searches:
+                  </span>
+                </div>
+                <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+                  {[
+                    "Artificial Intelligence",
+                    "Climate Change",
+                    "Biotechnology",
+                    "Social Sciences",
+                    "Engineering",
+                    "Medicine",
+                  ].map((tag, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSearchQuery(tag)}
+                      className="px-4 py-2 bg-white hover:bg-fuchsia-50 text-gray-600 hover:text-fuchsia-700 rounded-full text-sm border border-gray-200 hover:border-fuchsia-200 transition-all duration-300 transform hover:scale-105"
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>
       </section>
@@ -228,7 +348,7 @@ export default function InfoDocumentsPage() {
                 documents found
                 {searchQuery && (
                   <span className="ml-2 text-fuchsia-600">
-                    for "{searchQuery}"
+                    for &quot;{searchQuery}&quot;
                   </span>
                 )}
               </div>
