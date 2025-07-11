@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { infoApi } from "@/lib/api";
 import Link from "next/link";
 import Header from "@/components/header";
@@ -29,6 +29,7 @@ export default function InfoDocumentsPage() {
   const [sortBy, setSortBy] = useState("publish_date");
   const [sortOrder, setSortOrder] = useState("desc");
   const [searchTimeout, setSearchTimeout] = useState(null);
+  const searchTimeoutRef = useRef(null);
 
   const fetchDocuments = useCallback(
     async (page = 1, query = "") => {
@@ -62,18 +63,18 @@ export default function InfoDocumentsPage() {
   }, [searchQuery, fetchDocuments]);
 
   useEffect(() => {
-    if (searchTimeout) {
-      clearTimeout(searchTimeout);
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
     }
 
     const timeout = setTimeout(() => {
       performSearch();
     }, 500);
 
-    setSearchTimeout(timeout);
+    searchTimeoutRef.current = timeout;
 
     return () => clearTimeout(timeout);
-  }, [searchQuery, performSearch, searchTimeout]);
+  }, [searchQuery, performSearch]);
 
   useEffect(() => {
     fetchDocuments(1, searchQuery);
@@ -154,42 +155,20 @@ export default function InfoDocumentsPage() {
             <div className="text-center mb-12 lg:mb-16">
               <div className="inline-flex items-center px-4 py-2 bg-fuchsia-100/60 backdrop-blur-sm rounded-full text-fuchsia-700 text-sm font-medium mb-6 hover:bg-fuchsia-100/80 transition-all duration-300 cursor-default">
                 <div className="w-2 h-2 bg-fuchsia-500 rounded-full mr-2 animate-pulse"></div>
-                UNIBEN Research Hub
+                Directorate of Research, Innovation and Development - UNIBEN
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-                <span className="block">Discover</span>
+                <span className="block">Important</span>
                 <span className="block bg-gradient-to-r from-fuchsia-600 via-fuchsia-700 to-fuchsia-800 bg-clip-text text-transparent">
-                  Research Excellence
+                  Research Information
                 </span>
               </h1>
 
               <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Explore cutting-edge academic papers, groundbreaking research
-                findings, and institutional reports from the University of Benin
+                Access important documents, resources, and institutional reports
+                from the University of Benin
               </p>
-
-              {/* Research Stats */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mt-8 text-sm">
-                <div className="flex items-center gap-2 text-gray-600">
-                  <div className="w-8 h-8 bg-fuchsia-100 rounded-full flex items-center justify-center">
-                    <FileText className="w-4 h-4 text-fuchsia-600" />
-                  </div>
-                  <span>10,000+ Documents</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <div className="w-8 h-8 bg-fuchsia-100 rounded-full flex items-center justify-center">
-                    <User className="w-4 h-4 text-fuchsia-600" />
-                  </div>
-                  <span>500+ Researchers</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <div className="w-8 h-8 bg-fuchsia-100 rounded-full flex items-center justify-center">
-                    <Eye className="w-4 h-4 text-fuchsia-600" />
-                  </div>
-                  <span>1M+ Views</span>
-                </div>
-              </div>
             </div>
 
             {/* Enhanced Search Section */}
@@ -266,41 +245,7 @@ export default function InfoDocumentsPage() {
                   )}
                 </div>
               </form>
-
-              {/* Search Suggestions/Quick Actions */}
-              <div className="mt-8 lg:mt-12">
-                <div className="text-center mb-4">
-                  <span className="text-sm text-gray-500 font-medium">
-                    Popular searches:
-                  </span>
-                </div>
-                <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-                  {[
-                    "Artificial Intelligence",
-                    "Climate Change",
-                    "Biotechnology",
-                    "Social Sciences",
-                    "Engineering",
-                    "Medicine",
-                  ].map((tag, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSearchQuery(tag)}
-                      className="px-4 py-2 bg-white hover:bg-fuchsia-50 text-gray-600 hover:text-fuchsia-700 rounded-full text-sm border border-gray-200 hover:border-fuchsia-200 transition-all duration-300 transform hover:scale-105"
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
             </div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse"></div>
           </div>
         </div>
       </section>
@@ -438,10 +383,6 @@ export default function InfoDocumentsPage() {
                             <div className="flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
                               <span>{formatDate(document.publish_date)}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Eye className="w-4 h-4" />
-                              <span>{document.views?.count || 0} views</span>
                             </div>
                             <div className="flex items-center gap-1">
                               <Download className="w-4 h-4" />
