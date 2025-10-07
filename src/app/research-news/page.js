@@ -10,8 +10,16 @@ export default function ResearchNews() {
   return (
     <>
       <Header />
-      <div className="w-full h-max min-h-auto text-white bg-gray-800 bg-[url('/research-news-hero.jpeg')] bg-no-repeat bg-cover bg-center">
-        <div className="w-full h-full backdrop-blur-xs py-16 md:py-24 xl:py-36 px-4 text-center">
+      <div className="w-full h-max min-h-auto text-white relative">
+        <Image
+          src="/research-news-hero.jpeg"
+          alt="Research news hero image"
+          fill
+          style={{ objectFit: "cover" }}
+          className="z-0"
+          priority
+        />
+        <div className="w-full h-full relative z-10 backdrop-blur-xs py-16 md:py-24 xl:py-36 px-4 text-center">
           <h1 className="text-4xl font-bold mb-6 md:mb-8 md:text-6xl">
             UNIBEN Research: <br />
             Cultivating Excellence, Driving Development

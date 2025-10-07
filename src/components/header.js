@@ -270,14 +270,26 @@ const Header = ({ isSearchPage = false }) => {
           <Link href="/development" className="hover:text-gray-400">
             DEVELOPMENT
           </Link>
+          <Link href="/info" className="hover:text-gray-400">
+            INFO DOCS
+          </Link>
+          <Link
+            href="https://course.drid-uniben.org"
+            className="hover:text-gray-400"
+          >
+            COURSE
+          </Link>
+          <Link
+            href="https://proposal.drid-uniben.org"
+            className="hover:text-gray-400"
+          >
+            SUBMIT PROPOSAL
+          </Link>
           <Link href="/research-news" className="hover:text-gray-400">
             RESEARCH NEWS
           </Link>
           <Link href="/partnerships" className="hover:text-gray-400">
             PARTNERSHIPS
-          </Link>
-          <Link href="https://drid-uniben.org" className="hover:text-gray-400">
-            Submit Proposal
           </Link>
         </div>
       )}

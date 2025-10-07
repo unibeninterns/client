@@ -29,9 +29,17 @@ export default function Home() {
     <>
       <Header />
       <div
-        className={`${geistSans.className} w-full h-max min-h-10/12 text-white bg-gray-800 bg-[url('/hero-main.png')] bg-no-repeat bg-cover bg-center`}
+        className={`${geistSans.className} w-full h-max min-h-10/12 text-white relative`}
       >
-        <div className="w-full h-full backdrop-blur-xs py-16 md:py-24 xl:py-36 px-4 text-center">
+        <Image
+          src="/hero-main.png"
+          alt="Hero Image"
+          fill
+          style={{ objectFit: "cover" }}
+          className="z-0"
+          priority
+        />
+        <div className="relative z-10 w-full h-full backdrop-blur-xs py-16 md:py-24 xl:py-36 px-4 text-center">
           <h1
             className={`${geistMono.className} text-4xl font-bold mb-6 md:mb-8 md:text-6xl`}
           >
