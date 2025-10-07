@@ -8,6 +8,8 @@ import Footer from "@/components/footer";
 import { articlesApi } from "@/lib/api";
 import { getImageUrl } from "@/lib/utils";
 
+
+
 export default function ResearchPage() {
   const [researchArticles, setResearchArticles] = useState([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
@@ -38,7 +40,7 @@ export default function ResearchPage() {
       <section className="relative h-[60vh] w-full">
         <Image
           src="/publications.jpeg" // Use the appropriate image based on the prompt
-          alt="UNIBEN Research Publications"
+          alt="UNIBEN Research Publications - A collection of research publications"
           fill
           className="object-cover brightness-75"
           priority

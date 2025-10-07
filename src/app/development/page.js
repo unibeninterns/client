@@ -8,6 +8,8 @@ import Footer from "@/components/footer";
 import { articlesApi } from "@/lib/api";
 import { getImageUrl } from "@/lib/utils";
 
+
+
 export default function DevelopmentPage() {
   const [developmentArticles, setDevelopmentArticles] = useState([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
@@ -38,7 +40,7 @@ export default function DevelopmentPage() {
       <section className="relative h-[60vh] w-full">
         <Image
           src="/development-hero.jpeg" // Replace with appropriate image
-          alt="Research-Driven Development"
+          alt="Research-Driven Development - A researcher working in a lab"
           fill
           className="object-cover brightness-75"
           priority

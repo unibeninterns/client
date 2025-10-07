@@ -8,6 +8,8 @@ import Link from "next/link";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
+
+
 export default function InnovationPage() {
   const [innovationArticles, setInnovationArticles] = useState([]);
   const [loadingArticles, setLoadingArticles] = useState(true);
@@ -37,7 +39,7 @@ export default function InnovationPage() {
       <section className="relative h-[60vh] w-full">
         <Image
           src="/innovation-home.jpeg" // Replace with your hero image
-          alt="Innovation at UNIBEN"
+          alt="Innovation at UNIBEN - A group of students working together on a project"
           fill
           className="object-cover brightness-75"
           priority

@@ -2,13 +2,7 @@
 import Image from "next/image";
 import Header from "@/components/header";
 import Link from "next/link";
-import {
-  Microscope,
-  FlaskConical,
-  BookOpenCheck,
-  Brain,
-  Layers,
-} from "lucide-react";
+import { BookOpenCheck, Brain, Layers } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -16,14 +10,31 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Footer from "@/components/footer";
+import { Geist, Geist_Mono } from "next/font/google";
+
+
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export default function Home() {
   return (
     <>
       <Header />
-      <div className="w-full h-max min-h-10/12 text-white bg-gray-800 bg-[url('/hero-main.png')] bg-no-repeat bg-cover bg-center">
+      <div
+        className={`${geistSans.className} w-full h-max min-h-10/12 text-white bg-gray-800 bg-[url('/hero-main.png')] bg-no-repeat bg-cover bg-center`}
+      >
         <div className="w-full h-full backdrop-blur-xs py-16 md:py-24 xl:py-36 px-4 text-center">
-          <h1 className="text-4xl font-bold mb-6 md:mb-8 md:text-6xl">
+          <h1
+            className={`${geistMono.className} text-4xl font-bold mb-6 md:mb-8 md:text-6xl`}
+          >
             Advancing Research.
             <br />
             Fostering Innovation.
@@ -175,7 +186,7 @@ export default function Home() {
             <div className="w-full h-full md:w-1/2">
               <Image
                 src={"/research-news.jpeg"}
-                alt="Research news Illustration"
+                alt="Research news Illustration - A collage of research-related images"
                 title="Research news illustration"
                 width={150}
                 height={150}
@@ -298,7 +309,7 @@ export default function Home() {
               <div className="relative aspect-video md:aspect-square rounded-2xl overflow-hidden shadow-lg">
                 <Image
                   src="/innovation-home.jpeg"
-                  alt="UNIBEN students collaborating on innovation projects"
+                  alt="UNIBEN students collaborating on innovation projects - A group of students working together on a project"
                   fill
                   className="object-cover"
                   priority
@@ -333,7 +344,7 @@ export default function Home() {
           <div className="relative h-64 w-full">
             <Image
               src="/publications.jpeg"
-              alt="UNIBEN Research Engagement"
+              alt="UNIBEN Research Engagement - A collection of research publications"
               fill
               className="object-cover rounded-xl shadow-lg"
             />
@@ -363,7 +374,7 @@ export default function Home() {
           <div className="relative h-64 w-full">
             <Image
               src="/development-hero.jpeg"
-              alt="UNIBEN Research in Action"
+              alt="UNIBEN Research in Action - A researcher working in a lab"
               fill
               className="object-cover rounded-xl shadow"
             />
@@ -411,7 +422,7 @@ export default function Home() {
               <div className="flex-shrink-0 w-full md:w-1/3">
                 <Image
                   src="/drid-director.jpg"
-                  alt="Prof. Ngozi Finette Stewart"
+                  alt="Prof. Ngozi Finette Stewart - Director of DRID"
                   className="rounded-2xl w-full h-auto object-cover shadow-lg"
                   width={200}
                   height={450}

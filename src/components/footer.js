@@ -59,20 +59,11 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href="#" className="hover:text-white" target="_blank">
+              <Link href="https://www.linkedin.com/company/directorate-of-research-innovation-and-development-uniben/" className="hover:text-white" target="_blank">
                 LinkedIn
               </Link>
             </li>
-            <li>
-              <Link href="#" className="hover:text-white" target="_blank">
-                YouTube
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="hover:text-white" target="_blank">
-                Instagram
-              </Link>
-            </li>
+
           </ul>
         </div>
 
@@ -85,6 +76,21 @@ const Footer = () => {
             <li>
               <Link href="https://uniben.edu/" className="hover:text-white">
                 UNIBEN Main Site
+              </Link>
+            </li>
+            <li>
+              <Link href="https://drid-uniben.org/" className="hover:text-white">
+                DRID UNIBEN
+              </Link>
+            </li>
+            <li>
+              <Link href="https://courses.drid-uniben.org/" className="hover:text-white">
+                Courses
+              </Link>
+            </li>
+            <li>
+              <Link href="https://proposals.drid-uniben.org/" className="hover:text-white">
+                Proposals
               </Link>
             </li>
             <li>

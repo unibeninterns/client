@@ -2,6 +2,9 @@
 import Image from "next/image";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { getImageUrl } from "@/lib/utils";
+
+
 
 export default function ResearchNews() {
   return (

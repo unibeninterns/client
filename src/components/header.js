@@ -57,7 +57,7 @@ const Header = ({ isSearchPage = false }) => {
             width={200}
             height={58}
             className="w-44 md:w-64"
-            alt="Logo : DEPARTMENT OF RESEARCH, INNOVATION AND RESEARCH"
+            alt="Logo : DIRECTORATE OF RESEARCH, INNOVATION AND RESEARCH"
           />
         </Link>
         <div className="py-3 w-2/4 hidden md:block">
@@ -159,11 +159,45 @@ const Header = ({ isSearchPage = false }) => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/info" className="hover:text-gray-400">
-                    INFO DOCUMENTS
+                    INFO DOCS
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Important information and documents</p>
+                  <p>Newsletters, Important information and documents</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </li>
+          <li>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link
+                    href="https://course.drid-uniben.org"
+                    className="hover:text-gray-400"
+                  >
+                    COURSE
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Access our Research Diploma Course</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </li>
+          <li>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link
+                    href="https://proposal.drid-uniben.org"
+                    className="hover:text-gray-400"
+                  >
+                    SUBMIT PROPOSAL
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Submit your research</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -192,23 +226,6 @@ const Header = ({ isSearchPage = false }) => {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Our partnerships</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </li>
-          <li>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Link
-                    href="https://drid-uniben.org"
-                    className="hover:text-gray-400"
-                  >
-                    Submit Proposal
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Submit your research</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
